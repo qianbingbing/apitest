@@ -36,13 +36,11 @@
             <a href="javascript:;">
               <i class="fa fa-home"></i> Project <div class="pull-right"><span class="caret"></span></div>
             </a>
+            {% for project in projects %}
             <ul class="templatemo-submenu">
-              <li><a href="#">慢钱</a></li>
-              <li><a href="#">有单</a></li>
-              <li><a href="#">保理</a></li>
-              <li><a href="#">其他1</a></li>
-              <li><a href="#">其他2</a></li>
+              <li ><a href="">{{ project }}</a></li>
             </ul>
+           {% endfor %}
           </li>
           <li><a href="/result/"><i class="fa fa-cubes"></i>Reprot</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
@@ -81,7 +79,7 @@
                       <th>Url</th>
                       <th>InputArgs</th>
                       <th>Result</th>
-                        <th>Action</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -94,11 +92,11 @@
                             </label>
                         </div>
                       </td>
-                      <td>{{ i.TestId}}</td>
-                      <td>{{ i.Method }}</td>
-                      <td>{{ i.Url }}</td>
-                      <td>{{ i.InputArg }}</td>
-                      <td>{{ i.ExResult }}</td>
+                      <td>{{ i.id}}</td>
+                      <td>{{ i.method }}</td>
+                      <td>{{ i.url }}</td>
+                      <td>{{ i.params }}</td>
+                      <td>{{ i.ex_result }}</td>
                       <td style="width: 120px;">
                         <!-- Split button -->
                         <div class="btn-group">
@@ -108,8 +106,8 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <ul class="dropdown-menu" role="menu">
-                            <li><a href="/add/">编辑</a></li>
-                            <li><a href="#">删除</a></li>
+                            <li><a href="/edit/?id={{ i.id }}">编辑</a></li>
+                            <li><a href="/delete/?id={{ i.id }}">删除</a></li>
                             <li><a href="#">查看</a></li>
                           </ul>
                         </div>
@@ -118,18 +116,41 @@
                   </tbody>
                 </table>
               </div>
+            <nav aria-label="Page navigation">
               <ul class="pagination">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">4 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">5 <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">&raquo;</a></li>
+              <!--  如果cases 元素 有上一页，则显示上一页箭头且修改链接地址-->
+                  {% if cases.has_previous %}
+                      <li>
+                      <a href="?page={{ cases.previous_page_number }}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                      </li>
+                  {% endif %}
+              <!--  生成导航标签页面，将view传来的页面相同的码数亮显-->
+                  {% for page in cases.paginator.page_range %}
+                      {% if cases.number == page %}
+                          <li class="active"><a href="?page={{ page }}">{{ page}}</a></li>
+                      {% else %}
+                          <li><a href="?page={{ page }}">{{ page }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+              <!--  如果cases 有下一页，则显示下一页箭头且修改链接地址-->
+                  {% if cases.has_next %}
+                    <li>
+                    <a href="?page={{ cases.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                  {% endif %}
               </ul>
+            </nav>
+
+            <!--执行选中的测试用例-->
               <div class="btn-group pull-right" id="templatemo_sort_btn">
                 <a href="" type="button" class="btn btn-primary">执行测试</a>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -149,7 +170,7 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
 </div>
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>

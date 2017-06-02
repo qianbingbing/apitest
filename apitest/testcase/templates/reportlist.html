@@ -31,7 +31,7 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
     <div class="template-page-wrapper">
       <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">
-            {% for list in lists %}
+            {% for list in dates %}
               <li class="sub">
             <a href="javascript:;">
               <i class="fa fa-database"></i>{{ list.time }}<div class="pull-right"><span class="caret"></span></div>
@@ -47,8 +47,8 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
       <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="/index/">index</a></li>
-            <li class="active">report</li>
+            <li><a href="/index/">首页</a></li>
+            <li class="active">测试报告</li>
           </ol>
           <h1>Test Report </h1>
           <p>Here you can see your report list ......</p>
@@ -65,7 +65,6 @@ http://www.templatemo.com/preview/templatemo_415_dashboard
          -->
         </div>
       </div>
-
       <!-- Modal -->
       <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">

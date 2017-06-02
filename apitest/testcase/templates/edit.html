@@ -57,34 +57,45 @@
         <div class="templatemo-content">
           <ol class="breadcrumb">
             <li><a href="/index">首页</a></li>
-            <li class="active">添加用例</li>
+            <li class="active">编辑用例</li>
           </ol>
           <h1>Notes:</h1>
-          <p class="margin-bottom-15">添加一个测试用例 ........</p>
+          <p class="margin-bottom-15">编辑一个测试用例 ........</p>
           <div class="row">
             <div class="col-md-12">
-              <form role="form" method="POST" id="templatemo-preferences-form" action="/save_case/">
+              <form role="form" method="POST" id="templatemo-preferences-form" action="/update_case/?id={{ obj.id }}">
                 <div class="row">
                   <div class="col-md-6 margin-bottom-15">
                     <label for="lastName" class="control-label">标题</label>
-                    <input type="text" class="form-control" name="title" placeholder="请输入标题" >
+                    <input type="text" class="form-control" name="title" value="{{ obj.title }}" >
                   </div>
                   <div class="col-md-6 margin-bottom-15">
                     <label for="firstName" class="control-label">描述</label>
-                    <input type="text" class="form-control" name="desc" placeholder="请输入描述">
+                    <input type="text" class="form-control" name="desc" value="{{ obj.desc }}">
                   </div>
                   <div class="col-md-2 margin-bottom-15">
                   <label for="singleSelect">类型</label>
                   <select class="form-control margin-bottom-15" name="method">
-                    <option>GET</option>
-                    <option>POST</option>
-                    <option>PUT</option>
-                    <option>DELETE</option>
+                    <option {% if obj.method == 'GET'  %}
+                        selected
+                    {% endif %}>GET</option>
+                    <option {% if obj.method == 'POST'  %}
+                        selected
+                    {% endif %}
+                    >POST</option>
+                    <option {% if obj.method == 'PUT'  %}
+                        selected
+                    {% endif %}
+                    >PUT</option>
+                    <option {% if obj.method == 'DELETE'  %}
+                        selected
+                    {% endif %}
+                    >DELETE</option>
                   </select>
                   </div>
                   <div class="col-md-10 margin-bottom-1e5">
                     <label for="lastName" class="control-label">接口地址</label>
-                    <input type="text" class="form-control" name="url" placeholder="">
+                    <input type="text" class="form-control" name="url" value="{{ obj.url }}">
                   </div>
                 </div>
               <div class="row">
@@ -94,10 +105,13 @@
               </div>
               <div class="row">
                 <div class="col-md-5 margin-bottom-15">
-                  <input type="text" class="form-control" name="key1" placeholder="key">
+                  <input type="text" class="form-control" name="key1" value="{% for key,value in params.items %}
+                   {{ key }}
+                  {% endfor %}
+                  ">
                 </div>
                 <div class="col-md-5 margin-bottom-15">
-                  <input type="text" class="form-control" name="value1" placeholder="value">
+                  <input type="text" class="form-control" name="value1" value="{{ obj.params }}">
                 </div>
                 <div class="col-md-2 margin-bottom-15">
                     <a class="btn btn-primary">Delete</a>
@@ -106,7 +120,7 @@
               <div class="row">
                 <div class="col-md-12 margin-bottom-15">
                   <label for="notes">预期结果</label>
-                  <textarea name ="ex_result" class="form-control" rows="3" id="notes"></textarea>
+                  <textarea name ="ex_result" class="form-control" rows="3" id="notes" >{{ obj.ex_result }} </textarea>
                 </div>
               </div>
               <div class="row templatemo-form-buttons">

@@ -21,8 +21,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', views.login),
     url(r'^login_action/$', views.login_action),
-    url(r'index', views.index),
+    url(r'index', views.test_cases),
     url(r'result/', views.report),
     url(r'add/', views.add),
-
+    url(r'^save_case/$', views.save_testcase),
+    url(r'^delete/$',views.delete_testcase),
+    url(r'^edit/$',views.edit_testcase)
 ]
