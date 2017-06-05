@@ -30,7 +30,7 @@ C:\Python27\lib\json\decoder.py in raw_decode
 ▶ Local vars
 ```
 这个问题，纠缠了很久的原因，就是不知道为什么不可以反序列化成功。最后找到原因是因为json.loads()不支持对单引号。当然英文也提示了这一点.解决这个问题的方法
-后面会讲到
+先提一点json.loads()与json.load()
 
 ```
 load和loads都是实现“反序列化”，区别在于（以Python为例）：
