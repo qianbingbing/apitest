@@ -105,13 +105,16 @@
               </div>
               <div class="row">
                 <div class="col-md-5 margin-bottom-15">
-                  <input type="text" class="form-control" name="key1" value="{% for key,value in params.items %}
-                   {{ key }}
+                  <input type="text" class="form-control" name="key1" value="{% for i in params.iterkeys %}
+                   {{ i }}
                   {% endfor %}
                   ">
                 </div>
                 <div class="col-md-5 margin-bottom-15">
-                  <input type="text" class="form-control" name="value1" value="{{ obj.params }}">
+                  <input type="text" class="form-control" name="key1" value="{% for i in params.itervalues %}
+                   {{ i }}
+                  {% endfor %}
+                  ">
                 </div>
                 <div class="col-md-2 margin-bottom-15">
                     <a class="btn btn-primary">Delete</a>
