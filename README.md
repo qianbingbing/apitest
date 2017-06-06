@@ -22,3 +22,12 @@ def edit_testcase(request):
         logger.debug(k+':'+v)
     return render(request,'edit.html',{'obj':obj,'params':str})
 ```
+补充以下知识点，json.load() json.dump() json.loads(),json.dumps()的区别
+```
+loads针对内存对象，即将Python内置数据序列化为字串
+如使用json.dumps序列化的对象d_json=json.dumps({'a':1, 'b':2})，在这里d_json是一个字串'{"b": 2, "a": 1}'
+d=json.loads(d_json)  #{ b": 2, "a": 1}，使用loads重新反序列化为dict
+load针对文件句柄
+如本地有一个json文件a.json则可以d=json.load(open('a.json'))
+相应的，dump就是将内置类型序列化为json对象后写入文件
+```
