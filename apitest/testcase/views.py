@@ -7,13 +7,18 @@ import time
 import logging
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import models
+import sys
 from django.core.exceptions import ValidationError
 
 # Create your views here.
 logger = logging.getLogger('mylogger')
+
 #登录页面
 def login(request):
     return render(request, "login.html")
+
+
+
 #登录
 def login_action(request):
     if request.method == 'POST':
@@ -24,6 +29,7 @@ def login_action(request):
             return response
         else:
             return render(request, 'login.html', {'error': 'username or password error!'})
+
 
 
 #测试报告页面
@@ -37,8 +43,12 @@ def add(request):
     return render(request,'add.html')
 
 
+
+
 #保存功能
 def save_testcase(request):
+    reload(sys)
+    sys.setdefaultencoding('utf-8')
     if request.method == 'POST':
         params = {}
         jsons_data ={}
@@ -47,9 +57,9 @@ def save_testcase(request):
         desc = request.POST.get('desc',"")
         method = request.POST.get('method',"")
         url = request.POST.get('url',"")
-        params_key1 = repr(request.POST.get("key1","").encode('utf-8'))
+        params_key1 = request.POST.get("key1","").decode('utf-8')
         logger.debug(params_key1)
-        params_value1 =repr(request.POST.get("value1","").encode('utf-8'))
+        params_value1 =request.POST.get("value1","").decode('utf-8')
         logger.debug(params_value1)
         ex_result = request.POST.get('ex_result',"")
         if title == ''or desc == ''or method == '' or url == '' or params_key1 == ''or params_value1 == '' or ex_result == '':
@@ -62,7 +72,10 @@ def save_testcase(request):
             jsons_data["method"] = method
             jsons_data["url"] = url
             params[params_key1] = params_value1
-            jsons_data["params"] = params
+            str = json.dumps(params, encoding="UTF-8", ensure_ascii=False, sort_keys=False, indent=4)
+            jsons_data["params"] = str
+            logger.debug(str)
+            logger.debug(type(str))
             jsons_data["ex_result"] = ex_result
             store_json(jsons_data)
             return HttpResponseRedirect('/index/')
@@ -79,17 +92,13 @@ def delete_testcase(requset):
 def edit_testcase(request):
     id = request.GET.get('id')
     obj = edit_json(id)
-    s = obj.params
-    logger.debug(s)
-    logger.debug(type(s))
-    str = json.loads(s)
+    params = obj.params
+    str = json.loads(params)
     logger.debug(str)
     logger.debug(type(str))
     for k,v in str.items():
         logger.debug(k+':'+v)
     return render(request,'edit.html',{'obj':obj,'params':str})
-
-
 
 def store_json(jsondata):
     dic ={"case_id":jsondata["id"],"title":jsondata["title"],"desc":jsondata["desc"],"method":jsondata["method"],"url"
