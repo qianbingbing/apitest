@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>Dashboard Preferences, Free Admin Template</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../static/css/templatemo_main.css">
+</head>
+<body>
+  <div id="main-wrapper">
+<!--
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <div class="logo"><h1>Dashboard - Admin Template</h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+    </div>
+    <div class="template-page-wrapper">
+      <div class="navbar-collapse collapse templatemo-sidebar">
+        <ul class="templatemo-sidebar-menu">
+          <li>
+            <form class="navbar-form">
+              <input type="text" class="form-control" id="templatemo_search_box" placeholder="Search...">
+              <span class="btn btn-default">Go</span>
+            </form>
+          </li>
+          <li><a href="index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+          <li class="sub">
+            <a href="javascript:;">
+              <i class="fa fa-database"></i> Nested Menu <div class="pull-right"><span class="caret"></span></div>
+            </a>
+            <ul class="templatemo-submenu">
+              <li><a href="#">Aenean</a></li>
+              <li><a href="#">Pellentesque</a></li>
+              <li><a href="#">Congue</a></li>
+              <li><a href="#">Interdum</a></li>
+              <li><a href="#">Facilisi</a></li>
+            </ul>
+          </li>
+          <li><a href="data-visualization.html"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>Data Visualization</a></li>
+          <li><a href="maps.html"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>Maps</a></li>
+          <li><a href="tables.html"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>Manage Users</a></li>
+          <li class="active"><a href="#"><i class="fa fa-cog"></i>Preferences</a></li>
+          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+        </ul>
+      </div>
+      -->
+      <!--/.navbar-collapse -->
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+          <ol class="breadcrumb">
+            <li><a href="/index">首页</a></li>
+            <li class="active">编辑用例</li>
+          </ol>
+          <h1>Notes:</h1>
+          <p class="margin-bottom-15">编辑一个测试用例 ........</p>
+          <div class="row">
+            <div class="col-md-12">
+              <form role="form" method="POST" id="templatemo-preferences-form" action="/update_case/?id={{ obj.id }}">
+                <div class="row">
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="lastName" class="control-label">标题</label>
+                    <input type="text" class="form-control" name="title" value="{{ obj.title }}" >
+                  </div>
+                  <div class="col-md-6 margin-bottom-15">
+                    <label for="firstName" class="control-label">描述</label>
+                    <input type="text" class="form-control" name="desc" value="{{ obj.desc }}">
+                  </div>
+                  <div class="col-md-2 margin-bottom-15">
+                  <label for="singleSelect">类型</label>
+                  <select class="form-control margin-bottom-15" name="method">
+                    <option {% if obj.method == 'GET'  %}
+                        selected
+                    {% endif %}>GET</option>
+                    <option {% if obj.method == 'POST'  %}
+                        selected
+                    {% endif %}
+                    >POST</option>
+                    <option {% if obj.method == 'PUT'  %}
+                        selected
+                    {% endif %}
+                    >PUT</option>
+                    <option {% if obj.method == 'DELETE'  %}
+                        selected
+                    {% endif %}
+                    >DELETE</option>
+                  </select>
+                  </div>
+                  <div class="col-md-10 margin-bottom-1e5">
+                    <label for="lastName" class="control-label">接口地址</label>
+                    <input type="text" class="form-control" name="url" value="{{ obj.url }}">
+                  </div>
+                </div>
+              <div class="row">
+                <div class="col-md-6 margin-bottom-15">
+                  <a class="btn btn-primary">参数</a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-5 margin-bottom-15">
+                  <input type="text" class="form-control" name="key1" value="{% for i in params.iterkeys %}
+                   {{ i }}
+                  {% endfor %}
+                  ">
+                </div>
+                <div class="col-md-5 margin-bottom-15">
+                  <input type="text" class="form-control" name="key1" value="{% for i in params.itervalues %}
+                   {{ i }}
+                  {% endfor %}
+                  ">
+                </div>
+                <div class="col-md-2 margin-bottom-15">
+                    <a class="btn btn-primary">Delete</a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 margin-bottom-15">
+                  <label for="notes">预期结果</label>
+                  <textarea name ="ex_result" class="form-control" rows="3" id="notes" >{{ obj.ex_result }} </textarea>
+                </div>
+              </div>
+              <div class="row templatemo-form-buttons">
+                <div class="col-md-12 ">
+                  <button type="submit" class="btn btn-primary">保存</button>
+                  <a href= '/index/' class="btn btn-default">取消</a>
+                </div>
+                  {{ error }}<br>
+              </div>
+                  {% csrf_token %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <script src="../static/js/jquery.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/templatemo_script.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+    function addtext(){
+    var threadsCount = document.getElementById("addtexta").value;
+
+    //threadsCount 表示你要插入的个数
+    if(threadsCount!=''&&parseInt(threadsCount)>0){
+        var tr=document.createElement("tr");
+        tr.id=1;
+        var td;
+        for(var i=1;i<=10;i++){
+            td=document.createElement("td");
+            td.id=tr.id+"/"+i;
+            td.width="10%";
+            td.appendChild(document.createTextNode(""));
+            tr.appendChild(td);
+        }
+        document.getElementById("newbody").appendChild(tr);
+        tr=document.createElement("tr");
+        tr.id=2;
+
+        for(var i=1;i<=parseInt(threadsCount);i++){
+           td=document.createElement("td");
+           td.id=tr.id+"/"+i+1;
+           var btn;
+           if(i<10){
+                   btn = document.createElement("<INPUT type='text'  id='thread0"+i+"' name='thread0"+i+"' value='thread0"+i+"'>");
+
+           }
+           td.appendChild(btn);
+           td.align="left";
+           tr.appendChild(td);
+           if(i%10==0&&i!=1){
+                   document.getElementById("newbody").appendChild(tr);
+                   tr=document.createElement("tr");
+                tr.id=i/10+2;
+           }
+        }
+        document.getElementById("newbody").appendChild(tr);
+    }
+    }
+</script>
+</body>
+</html>

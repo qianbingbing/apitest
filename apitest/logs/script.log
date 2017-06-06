@@ -1,0 +1,501 @@
+2017-05-31 11:27:46,448 [Thread-3:2180] [django.request:152] [WARNING]- Not Found: /favicon.ico
+2017-05-31 11:27:49,447 [Thread-4:4044] [django.request:152] [WARNING]- Not Found: /
+2017-05-31 14:31:54,322 [Thread-10:8600] [django.request:152] [WARNING]- Not Found: /favicon.ico
+2017-05-31 14:31:56,724 [Thread-11:8604] [django.request:124] [ERROR]- Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\cache.py", line 57, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\sites.py", line 377, in login
+    return login(request, **defaults)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\views.py", line 47, in inner
+    return func(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 149, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\cache.py", line 57, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\views.py", line 81, in login
+    if form.is_valid():
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 169, in is_valid
+    return self.is_bound and not self.errors
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 161, in errors
+    self.full_clean()
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 371, in full_clean
+    self._clean_form()
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 398, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Python27\lib\site-packages\django\contrib\auth\forms.py", line 191, in clean
+    self.user_cache = authenticate(username=username, password=password)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\__init__.py", line 74, in authenticate
+    user = backend.authenticate(**credentials)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\backends.py", line 17, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\base_user.py", line 48, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 379, in get
+    num = len(clone)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 238, in __len__
+    self._fetch_all()
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1087, in _fetch_all
+    self._result_cache = list(self.iterator())
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql()
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 835, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+OperationalError: no such table: auth_user
+2017-05-31 14:32:27,013 [Thread-13:8692] [django.request:124] [ERROR]- Internal Server Error: /admin/login/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\cache.py", line 57, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\admin\sites.py", line 377, in login
+    return login(request, **defaults)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\views.py", line 47, in inner
+    return func(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\debug.py", line 76, in sensitive_post_parameters_wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\utils\decorators.py", line 149, in _wrapped_view
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\views\decorators\cache.py", line 57, in _wrapped_view_func
+    response = view_func(request, *args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\views.py", line 81, in login
+    if form.is_valid():
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 169, in is_valid
+    return self.is_bound and not self.errors
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 161, in errors
+    self.full_clean()
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 371, in full_clean
+    self._clean_form()
+  File "C:\Python27\lib\site-packages\django\forms\forms.py", line 398, in _clean_form
+    cleaned_data = self.clean()
+  File "C:\Python27\lib\site-packages\django\contrib\auth\forms.py", line 191, in clean
+    self.user_cache = authenticate(username=username, password=password)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\__init__.py", line 74, in authenticate
+    user = backend.authenticate(**credentials)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\backends.py", line 17, in authenticate
+    user = UserModel._default_manager.get_by_natural_key(username)
+  File "C:\Python27\lib\site-packages\django\contrib\auth\base_user.py", line 48, in get_by_natural_key
+    return self.get(**{self.model.USERNAME_FIELD: username})
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 379, in get
+    num = len(clone)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 238, in __len__
+    self._fetch_all()
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1087, in _fetch_all
+    self._result_cache = list(self.iterator())
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 54, in __iter__
+    results = compiler.execute_sql()
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 835, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+OperationalError: no such table: auth_user
+2017-05-31 14:39:40,035 [Thread-9:5648] [django.request:124] [ERROR]- Internal Server Error: /save_case/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 55, in save_testcase
+    store_json(jsons_data)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 58, in store_json
+    models.Testcase.objects.create(**jsondata)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 399, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 796, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 824, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 908, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 947, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1045, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1054, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+OperationalError: table testcase_testcase has no column named params_key1
+2017-05-31 15:03:43,381 [Thread-4:8568] [django.request:124] [ERROR]- Internal Server Error: /save_case/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 55, in save_testcase
+    store_json(jsons_data)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 61, in store_json
+    models.Testcase.objects.create(**dic)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 399, in create
+    obj.save(force_insert=True, using=self.db)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 796, in save
+    force_update=force_update, update_fields=update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 824, in save_base
+    updated = self._save_table(raw, cls, force_insert, force_update, using, update_fields)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 908, in _save_table
+    result = self._do_insert(cls._base_manager, using, fields, update_pk, raw)
+  File "C:\Python27\lib\site-packages\django\db\models\base.py", line 947, in _do_insert
+    using=using, raw=raw)
+  File "C:\Python27\lib\site-packages\django\db\models\manager.py", line 85, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "C:\Python27\lib\site-packages\django\db\models\query.py", line 1045, in _insert
+    return query.get_compiler(using=using).execute_sql(return_id)
+  File "C:\Python27\lib\site-packages\django\db\models\sql\compiler.py", line 1054, in execute_sql
+    cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return super(CursorDebugWrapper, self).execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\utils.py", line 94, in __exit__
+    six.reraise(dj_exc_type, dj_exc_value, traceback)
+  File "C:\Python27\lib\site-packages\django\db\backends\utils.py", line 64, in execute
+    return self.cursor.execute(sql, params)
+  File "C:\Python27\lib\site-packages\django\db\backends\sqlite3\base.py", line 337, in execute
+    return Database.Cursor.execute(self, query, params)
+OperationalError: table testcase_testcase has no column named params_key1
+2017-06-01 16:38:32,464 [Thread-10:6984] [django.request:152] [WARNING]- Not Found: /favicon.ico
+2017-06-01 16:38:37,282 [Thread-11:6548] [django.request:124] [ERROR]- Internal Server Error: /delete/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: delete_testcase() takes exactly 2 arguments (1 given)
+2017-06-01 16:41:19,832 [Thread-17:6592] [django.request:124] [ERROR]- Internal Server Error: /delete/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: delete_testcase() takes exactly 2 arguments (1 given)
+2017-06-01 16:50:44,818 [Thread-19:4544] [django.request:124] [ERROR]- Internal Server Error: /delete/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+TypeError: delete_testcase() takes exactly 2 arguments (1 given)
+2017-06-01 18:16:07,869 [Thread-44:5208] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 69, in edit_testcase
+    return render(request,'edit.html',{'obj':obj})
+  File "C:\Python27\lib\site-packages\django\shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python27\lib\site-packages\django\template\loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "C:\Python27\lib\site-packages\django\template\backends\django.py", line 66, in render
+    return self.template.render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 208, in render
+    return self._render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Python27\lib\site-packages\django\template\defaulttags.py", line 200, in render
+    .format(num_loopvars, len_item),
+ValueError: Need 2 values to unpack in for loop; got 1. 
+2017-06-01 19:08:13,923 [Thread-2:5724] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    return render(request,'edit.html',{'obj':obj,'params':params})
+  File "C:\Python27\lib\site-packages\django\shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Python27\lib\site-packages\django\template\loader.py", line 68, in render_to_string
+    return template.render(context, request)
+  File "C:\Python27\lib\site-packages\django\template\backends\django.py", line 66, in render
+    return self.template.render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 208, in render
+    return self._render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 199, in _render
+    return self.nodelist.render(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 994, in render
+    bit = node.render_annotated(context)
+  File "C:\Python27\lib\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+  File "C:\Python27\lib\site-packages\django\template\defaulttags.py", line 200, in render
+    .format(num_loopvars, len_item),
+ValueError: Need 2 values to unpack in for loop; got 1. 
+2017-06-01 19:12:50,900 [Thread-2:5776] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 69, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:13:57,924 [Thread-7:6464] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 69, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:15:42,739 [Thread-2:5904] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load("{'key':'value'}")
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+2017-06-01 19:15:43,206 [Thread-3:6884] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load("{'key':'value'}")
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+2017-06-01 19:15:43,424 [Thread-4:6192] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load("{'key':'value'}")
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+2017-06-01 19:15:44,707 [Thread-5:2312] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load("{'key':'value'}")
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+2017-06-01 19:15:45,487 [Thread-6:3828] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load("{'key':'value'}")
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'str' object has no attribute 'read'
+2017-06-01 19:18:46,063 [Thread-2:4192] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:18:46,637 [Thread-3:3660] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:18:49,460 [Thread-4:5772] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:25:07,634 [Thread-10:4508] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:25:07,637 [Thread-11:2960] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:25:07,640 [Thread-12:2840] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:25:07,644 [Thread-13:4164] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:26:03,941 [Thread-2:3748] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.load(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 287, in load
+    return loads(fp.read(),
+AttributeError: 'unicode' object has no attribute 'read'
+2017-06-01 19:32:14,147 [Thread-3:6924] [django.request:124] [ERROR]- Internal Server Error: /edit/
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\django\core\handlers\exception.py", line 39, in inner
+    response = get_response(request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python27\lib\site-packages\django\core\handlers\base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "F:\develop\software_dev\Python\apitest\testcase\views.py", line 70, in edit_testcase
+    params = json.loads(obj.params)
+  File "C:\Python27\lib\json\__init__.py", line 339, in loads
+    return _default_decoder.decode(s)
+  File "C:\Python27\lib\json\decoder.py", line 364, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+  File "C:\Python27\lib\json\decoder.py", line 380, in raw_decode
+    obj, end = self.scan_once(s, idx)
+ValueError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
