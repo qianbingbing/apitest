@@ -126,46 +126,5 @@
   <script src="../static/js/jquery.min.js"></script>
   <script src="../static/js/bootstrap.min.js"></script>
   <script src="../static/js/templatemo_script.js"></script>
-<script language="JavaScript" type="text/JavaScript">
-    function addtext(){
-    var threadsCount = document.getElementById("addtexta").value;
-
-    //threadsCount 表示你要插入的个数
-    if(threadsCount!=''&&parseInt(threadsCount)>0){
-        var tr=document.createElement("tr");
-        tr.id=1;
-        var td;
-        for(var i=1;i<=10;i++){
-            td=document.createElement("td");
-            td.id=tr.id+"/"+i;
-            td.width="10%";
-            td.appendChild(document.createTextNode(""));
-            tr.appendChild(td);
-        }
-        document.getElementById("newbody").appendChild(tr);
-        tr=document.createElement("tr");
-        tr.id=2;
-
-        for(var i=1;i<=parseInt(threadsCount);i++){
-           td=document.createElement("td");
-           td.id=tr.id+"/"+i+1;
-           var btn;
-           if(i<10){
-                   btn = document.createElement("<INPUT type='text'  id='thread0"+i+"' name='thread0"+i+"' value='thread0"+i+"'>");
-
-           }
-           td.appendChild(btn);
-           td.align="left";
-           tr.appendChild(td);
-           if(i%10==0&&i!=1){
-                   document.getElementById("newbody").appendChild(tr);
-                   tr=document.createElement("tr");
-                tr.id=i/10+2;
-           }
-        }
-        document.getElementById("newbody").appendChild(tr);
-    }
-    }
-</script>
 </body>
 </html>

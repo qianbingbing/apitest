@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.manqian.bao.grpc.api;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.entity";
+
+//用户信息
+message UserInfo{
+    int32 userId = 1;//用户ID
+    string userName = 2;//用户名
+    bool isVip = 3;//是否VIP
+}
+
+message Demo{
+    int32 user_id = 1;//用户ID
+    string user_name = 2;//用户名
+    bool is_vip = 3;//是否VIP
+}

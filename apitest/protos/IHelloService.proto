@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package com.manqian.yunke.grpc.demo.api.proto;
+option java_multiple_files = true;
+option java_package = "com.manqian.yunke.grpc.demo.api.protobuf";
+option java_outer_classname = "IHelloServiceProto";
+
+//活动服务
+service IHelloService {
+	//查询Hello
+	rpc findHello (FindHelloRequest) returns (FindHelloResponse) {}
+
+}
+
+//Hello 请求参数
+message FindHelloRequest {
+	string msg = 1;//内容
+}
+
+//Hello 响应参数
+message FindHelloResponse {
+	int32 rtn = 1;//状态码 0.正常 非0.异常
+	string msg = 2;//错误消息，rtn!=0时，有值
+	string resultMsg = 3;//内容
+	int32 totalCount = 4;//总数
+}

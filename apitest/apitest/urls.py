@@ -24,7 +24,8 @@ urlpatterns = [
     url(r'index', views.test_cases),
     url(r'result/', views.report),
     url(r'add/', views.add),
-    url(r'^save_case/$', views.save_testcase),
+    url(r'^save_case/$', views.add_testcase),
     url(r'^delete/$',views.delete_testcase),
-    url(r'^edit/$',views.edit_testcase)
+    url(r'^edit/$',views.edit_testcase),
+    url(r'^update_case/(?P<cid>\d+)',views.updete_testcase)
 ]

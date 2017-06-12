@@ -43,30 +43,23 @@ def add(request):
     return render(request,'add.html')
 
 
-
-
 #保存功能
-def save_testcase(request):
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
+def add_testcase(request):
     if request.method == 'POST':
-        params = {}
-        jsons_data ={}
-        testcaseID = int(time.time())
         title = request.POST.get('title',"")
         desc = request.POST.get('desc',"")
         method = request.POST.get('method',"")
         url = request.POST.get('url',"")
-        params_key1 = request.POST.get("key1","").decode('utf-8')
-        logger.debug(params_key1)
-        params_value1 =request.POST.get("value1","").decode('utf-8')
-        logger.debug(params_value1)
+        params_key1 = request.POST.get("key1","")
+        params_value1 =request.POST.get("value1","")
         ex_result = request.POST.get('ex_result',"")
         if title == ''or desc == ''or method == '' or url == '' or params_key1 == ''or params_value1 == '' or ex_result == '':
-            #return JsonResponse({'status':10021,'message':'some paramters is null'})
-            return render(request,'add.html',{'error': 'any empty input?'})
+            return JsonResponse({'status':10021,'message':'some paramters is null'})
+
         else:
-            jsons_data["id"] = testcaseID
+            params = {}
+            jsons_data ={}
+            jsons_data["id"] = int(time.time())
             jsons_data["title"] = title
             jsons_data["desc"] = desc
             jsons_data["method"] = method
@@ -85,13 +78,10 @@ def delete_testcase(requset):
     id = requset.GET.get('id')
     delete_json(id)
     return HttpResponseRedirect('/index/')
-
-
-
 #编辑
 def edit_testcase(request):
     id = request.GET.get('id')
-    obj = edit_json(id)
+    obj = get_cases(id)
     params = obj.params
     str = json.loads(params)
     logger.debug(str)
@@ -100,19 +90,53 @@ def edit_testcase(request):
         logger.debug(k+':'+v)
     return render(request,'edit.html',{'obj':obj,'params':str})
 
+#更新
+def updete_testcase(request,cid):
+    logger.debug("更新数据开始")
+    if request.method == 'POST':
+        title = request.POST.get('title',"")
+        desc = request.POST.get('desc',"")
+        method = request.POST.get('method',"")
+        url = request.POST.get('url',"")
+        params_key1 = request.POST.get("key1","")
+        params_value1 =request.POST.get("value1","")
+        ex_result = request.POST.get('ex_result',"")
+        if title == ''or desc == ''or method == '' or url == '' or params_key1 == ''or params_value1 == '' or ex_result == '':
+            #return JsonResponse({'status':10021,'message':'some paramters is null'})
+            return render(request,'add.html',{'error': 'any empty input?'})
+        else:
+            params = {}
+            cases =get_cases(cid)
+            cases.title =  title
+            cases.desc = desc
+            cases.method = method
+            cases.url = url
+            cases.ex_result =ex_result
+            params[params_key1] = params_value1
+            str = json.dumps(params, encoding="UTF-8", ensure_ascii=False, sort_keys=False, indent=4)
+            cases.params = str
+            cases.save()
+            return HttpResponseRedirect('/index/')
+
+
+
+
+
+
+
+# 保存至数据库
 def store_json(jsondata):
     dic ={"case_id":jsondata["id"],"title":jsondata["title"],"desc":jsondata["desc"],"method":jsondata["method"],"url"
     :jsondata["url"],"params":jsondata["params"],"ex_result":jsondata["ex_result"]}
     models.Testcase.objects.create(**dic)
 
-
-
+#查看所有的cases集合
 def load_json():
     jsondata = models.Testcase.objects.all()
     return jsondata
 
-#编辑或查看：id
-def edit_json(index):
+#根据id，查找case集合
+def get_cases(index):
     case = models.Testcase.objects.get(id=index)
     return case
 
@@ -124,7 +148,7 @@ def delete_json(index):
 
 #用例集合分页展示
 def test_cases(request):
-    projectName = [u'慢钱',u'有单',u'保理']
+    projectName = [u'慢钱',u'有单',u'保理',u'慢钱宝']
     data = load_json()
     paginator = Paginator(data,5)
     page =request.GET.get('page')
