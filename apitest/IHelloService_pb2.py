@@ -195,6 +195,8 @@ try:
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
+
+
   class BetaIHelloServiceStub(object):
     """The Beta API is deprecated for 0.15.0 and later.
 
@@ -208,6 +210,8 @@ try:
       """
       raise NotImplementedError()
     findHello.future = None
+
+
 
 
   def beta_create_IHelloService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
