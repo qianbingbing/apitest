@@ -41,7 +41,11 @@
               <li ><a href="">{{ project }}</a></li>
             </ul>
            {% endfor %}
+            <ul class="templatemo-submenu">
+              <li ><a href="/addProject/">+添加项目</a></li>
+            </ul>
           </li>
+
           <li><a href="/result/"><i class="fa fa-cubes"></i>Reprot</a></li>
           <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>Sign Out</a></li>
         </ul>
@@ -52,18 +56,17 @@
         <!--面包树-->
           <ol class="breadcrumb">
             <li><a href="/index/">首页</a></li>
-            <li class="active">介绍</li>
+            <li class="active">接口列表</li>
           </ol>
-          <h1>管理测试用例</h1>
-          <p>在这里你可以增加，删除，编辑，收藏并执行测试用例 ......</p>
+          <p>在这里你可以增加，删除，修改，查看项目的接口 ......</p>
         <!--测试用例列表-->
           <div class="row">
             <div class="col-md-12">
               <div class="btn-group pull-right" id="templatemo_sort_btn">
-                <a href="/add/" type="button" class="btn btn-default">添加用例</a>
+                <a href="/add/" type="button" class="btn btn-default">添加接口</a>
               </div>
               <div class="table-responsive">
-                <h4 class="margin-bottom-15">Test Case Table</h4>
+                <h4 class="margin-bottom-15">接口列表</h4>
                 <table class="table table-striped table-hover table-bordered">
                   <thead>
                     <tr>
@@ -74,12 +77,12 @@
                             </label>
                         </div>
                       </th>
-                      <th>ID</th>
-                      <th>Method</th>
-                      <th>Url</th>
-                      <th>InputArgs</th>
-                      <th>Result</th>
-                      <th>Action</th>
+                      <th>接口名称</th>
+                      <th>请求地址</th>
+                      <th>服务名</th>
+                      <th>方法名</th>
+                      <th>接口开发者</th>
+                      <th>操作</th>
                     </tr>
                   </thead>
                   <tbody>

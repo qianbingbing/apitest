@@ -17,8 +17,6 @@ logger = logging.getLogger('mylogger')
 def login(request):
     return render(request, "login.html")
 
-
-
 #登录
 def login_action(request):
     if request.method == 'POST':
@@ -30,8 +28,8 @@ def login_action(request):
         else:
             return render(request, 'login.html', {'error': 'username or password error!'})
 
-
-
+def add_Project(request):
+    return render(request,"addProject.html")
 #测试报告页面
 def report(request):
     dates=[{"time":"2017-5-11"},{"time":"2017-5-10"},{"time":"2017-5-9"}]
@@ -40,7 +38,8 @@ def report(request):
 
 #跳转添加页面
 def add(request):
-    return render(request,'add.html')
+    return render(request, 'addInterface.html')
+
 
 
 #保存功能
@@ -73,11 +72,14 @@ def add_testcase(request):
             store_json(jsons_data)
             return HttpResponseRedirect('/index/')
 
+
 #删除功能
 def delete_testcase(requset):
     id = requset.GET.get('id')
     delete_json(id)
     return HttpResponseRedirect('/index/')
+
+
 #编辑
 def edit_testcase(request):
     id = request.GET.get('id')
@@ -89,6 +91,7 @@ def edit_testcase(request):
     for k,v in str.items():
         logger.debug(k+':'+v)
     return render(request,'edit.html',{'obj':obj,'params':str})
+
 
 #更新
 def updete_testcase(request,cid):
@@ -103,7 +106,7 @@ def updete_testcase(request,cid):
         ex_result = request.POST.get('ex_result',"")
         if title == ''or desc == ''or method == '' or url == '' or params_key1 == ''or params_value1 == '' or ex_result == '':
             #return JsonResponse({'status':10021,'message':'some paramters is null'})
-            return render(request,'add.html',{'error': 'any empty input?'})
+            return render(request, 'addInterface.html', {'error': 'any empty input?'})
         else:
             params = {}
             cases =get_cases(cid)
