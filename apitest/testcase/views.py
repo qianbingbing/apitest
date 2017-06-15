@@ -20,7 +20,6 @@ def login(request):
 def index(request):
     projects = query_json("Project")
     return render(request,'index.html',{"projects":projects})
-
 #接口列表页面
 def project(request):
     id = request.GET.get('projectid')
@@ -36,25 +35,18 @@ def project(request):
     except EmptyPage:
         cases = paginator.page(paginator.num_pages)
     return render(request,'project.html',{"cases":cases,"id":id,"project":project,"projects":projects})
-
 #添加项目页面
 def add_Project(request):
     return render(request,"addProject.html")
-
-
 #测试报告页面
 def report(request):
     dates=[{"time":"2017-5-11"},{"time":"2017-5-10"},{"time":"2017-5-9"}]
     return render(request,'reportlist.html',{"dates":dates})
-
-
 #添加接口页面
 def add_interface(request):
     id = request.GET.get('projectid')
     logger.debug(id)
     return render(request, 'addInterface.html',{"id":id})
-
-
 #编辑接口页面
 def edit_interface(request):
     id = request.GET.get('id')
@@ -74,6 +66,8 @@ def edit_interface(request):
         logger.debug(k+':'+v)
     '''
     return render(request,'editInterface.html',{'obj':obj})
+
+
 
 #登录
 def login_action(request):
@@ -139,15 +133,13 @@ def save_project(request):
 
 #删除接口
 def delete_interface(requset):
-    project_id = requset.GET.get('id')
+    project_id = requset.GET.get('projectid')
     id = requset.GET.get('id')
     delete_json("Interface",id)
     return HttpResponseRedirect('/project.html/?projectid=%s'%project_id)
 
-
 #更新接口信息
 def updete_interface(request,cid):
-    logger.debug("更新数据开始")
     if request.method == 'POST':
         project_id = request.POST.get('id',"")
         name = request.POST.get('name',"")
@@ -168,7 +160,6 @@ def updete_interface(request,cid):
             interface.func = func
             interface.developer =developer
             interface.notes = notes
-
             '''
             str = json.dumps(params, encoding="UTF-8", ensure_ascii=False, sort_keys=False, indent=4)
             cases.params = str
@@ -178,7 +169,10 @@ def updete_interface(request,cid):
 
 
 
-# save to database
+
+
+
+# crate new into database
 def store_json(tablename,jsondata):
     table = getattr(models,tablename)
     table.objects.create(**jsondata)
@@ -187,7 +181,8 @@ def store_json(tablename,jsondata):
 def delete_json(tablename,index):
     table = getattr(models,tablename)
     table.objects.filter(id=index).delete()
-#
+
+#query data from  database
 def query_json(tablename,context=None):
     table = getattr(models,tablename)
     if context == None:
