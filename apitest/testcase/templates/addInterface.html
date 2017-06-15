@@ -2,7 +2,7 @@
 <head>
   <meta charset="utf-8">
   <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
-  <title>Dashboard Preferences, Free Admin Template</title>
+  <title>添加接口</title>
   <meta name="keywords" content="" />
   <meta name="description" content="" />
   <meta name="viewport" content="width=device-width">
@@ -63,11 +63,14 @@
           <p class="margin-bottom-15">添加一个接口 ........</p>
           <div class="row">
             <div class="col-md-12">
-              <form role="form" method="POST" id="templatemo-preferences-form" action="">
+              <form role="form" method="POST" id="templatemo-preferences-form" action="/save_interface/">
+                  <div style="display: none">
+                      <input type="text" class="form-control" name="id" placeholder="" value="{{ id }}">
+                  </div>
                 <div class="row">
                   <div class="col-md-12 margin-bottom-15">
                     <label for="lastName" class="control-label">接口名称</label>
-                    <input type="text" class="form-control" name="name" placeholder="请输入接口名" >
+                    <input type="text" class="form-control" name="name" placeholder="请输入接口名" value = "{{ obj.name }}" >
                   </div>
                   <div class="col-md-12 margin-bottom-15">
                     <label for="lastName" class="control-label">请求地址</label>
@@ -75,7 +78,7 @@
                   </div>
                     <div class="col-md-12 margin-bottom-15">
                     <label for="lastName" class="control-label">服务名</label>
-                    <input type="text" class="form-control" name="url" placeholder="请输入服务名">
+                    <input type="text" class="form-control" name="service_name" placeholder="请输入服务名">
                   </div>
                  <div class="col-md-12 margin-bottom-15">
                   <label for="lastName" class="control-label">方法名</label>
@@ -87,15 +90,20 @@
                   </div>
                    <div class="col-md-12 margin-bottom-15">
                     <label for="firstName" class="control-label">备注</label>
-                    <textarea name ="desc" class="form-control" rows="4" id="notes"></textarea>
+                    <textarea name ="notes" class="form-control" rows="4" ></textarea>
                     </div>
+
                 </div>
+
+
               <div class="row templatemo-form-buttons">
                 <div class="col-md-12 ">
                   <button type="submit" class="btn btn-primary">保存</button>
-                  <a href= '/index/' class="btn btn-default">取消</a>
+                  <a href= '' class="btn btn-default">取消</a>
                 </div>
-                  {{ error }}<br>
+                  <div class="col-md-12 margin-bottom-15">
+                  {{ error }}
+                  </div>
               </div>
                   {% csrf_token %}
             </form>

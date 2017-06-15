@@ -14,18 +14,20 @@ class Testcase(models.Model):
 
 #project models
 class Project(models.Model):
-    id = models.IntegerField()
+    id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=20)
     desc = models.CharField(max_length=40)
     leader = models.CharField(max_length=10)
     remark = models.CharField(max_length=20)
 
-
 #interface models
-class interface(models.Model):
+class Interface(models.Model):
     project_id = models.IntegerField()
-    interface_name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20)
     url = models.CharField(max_length=20)
     service_name = models.CharField(max_length=30)
-    func_name = models.CharField(max_length=20)
-    developer = models.CharField(max_length=10)
+    func = models.CharField(max_length=20)
+    developer = models.CharField(max_length=20)
+    notes = models.CharField(max_length=100)
+
+

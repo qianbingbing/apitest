@@ -21,12 +21,16 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/', views.login),
     url(r'^login_action/$', views.login_action),
-    url(r'index', views.test_cases),
+    url(r'index', views.index),
     url(r'result/', views.report),
-    url(r'add/', views.add),
-    url(r'^save_case/$', views.add_testcase),
-    url(r'^delete/$',views.delete_testcase),
-    url(r'^edit/$',views.edit_testcase),
-    url(r'^update_case/(?P<cid>\d+)',views.updete_testcase),
-    url(r'addProject/',views.add_Project)
+
+    url(r'add_interface/', views.add_interface),
+    url(r'^save_interface/$', views.save_interface),
+    url(r'^delete_interface/$',views.delete_interface),
+    url(r'^edit_interface/$',views.edit_interface),
+    url(r'^update_interface/(?P<cid>\d+)',views.updete_interface),
+    url(r'save_project/$',views.save_project),
+    url(r'^project.html/$',views.project),
+    url(r'addProject/',views.add_Project),
+
 ]
