@@ -31,3 +31,30 @@ load针对文件句柄
 如本地有一个json文件a.json则可以d=json.load(open('a.json'))
 相应的，dump就是将内置类型序列化为json对象后写入文件
 ```
+## 2017-6-14更新日志
+1、完成了grpc工具类的封装。见grpc_util.py文件
+2、新增了添加项目页面，添加接口页面
+3、数据模型中新增了项目表，接口表
+
+grpc_util工具类主要使用了反射机制。补充反射机制的一些知识点
+```
+反射的作用就是列出对象的所有属性和方法，反射就是告诉我们，这个对象到底是什么，提供了什么功能 。
+下面介绍主要的几个内置反射函数，如dir() getattr() setattr() __import__
+
+如下：
+
+  pb2file = __import__(self.pb2File)
+        requset = getattr(pb2file,reuqestName)
+        body = requset()
+        if isinstance(context,dict):
+            for i in  context.keys():
+                try:
+                    if hasattr(body,i):
+                        setattr(body,i,context[i])
+                except :
+                    print "params is wrong~ please check it "
+        else:
+            print "params is not a dict ~ please check it"
+        return body
+ 
+```
