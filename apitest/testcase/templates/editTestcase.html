@@ -56,54 +56,40 @@
       <div class="templatemo-content-wrapper">
         <div class="templatemo-content">
           <ol class="breadcrumb">
-            <li><a href="/index">首页</a></li>
-            <li class="active">添加接口</li>
+            <li><a href="/case_list/?projectid={{ project_id }}&id={{ interface_id }}">返回</a></li>
+            <li class="active">编辑用例</li>
           </ol>
           <h1>Notes:</h1>
-          <p class="margin-bottom-15">添加一个接口 ........</p>
+          <p class="margin-bottom-15">添加一个测试用例 ........</p>
           <div class="row">
             <div class="col-md-12">
-              <form role="form" method="POST" id="templatemo-preferences-form" action="/save_interface/">
+              <form role="form" method="POST" id="templatemo-preferences-form" action="/update_testcase/?project_id={{ project_id }}&id={{ case.id }}">
                   <div style="display: none">
-                      <input type="text" class="form-control" name="id" placeholder="" value="{{ id }}">
+                      <input type="text" class="form-control" name="interface_id" placeholder="" value="{{ interface_id }}">
+                      <input type="text" class="form-control" name="project_id" placeholder="" value="{{ project_id }}">
                   </div>
                 <div class="row">
                   <div class="col-md-12 margin-bottom-15">
-                    <label for="lastName" class="control-label">接口名称</label>
-                    <input type="text" class="form-control" name="name" placeholder="请输入接口名" value = "{{ obj.name }}" >
+                    <label for="lastName" class="control-label">用例名称</label>
+                    <input type="text" class="form-control" name="title" placeholder="请输入用例名称" value="{{ case.title }}" >
                   </div>
                   <div class="col-md-12 margin-bottom-15">
-                    <label for="lastName" class="control-label">请求地址</label>
-                    <input type="text" class="form-control" name="url" placeholder="请输入服务器地址">
-                  </div>
-                    <div class="col-md-12 margin-bottom-15">
-                    <label for="lastName" class="control-label">服务名</label>
-                    <input type="text" class="form-control" name="service_name" placeholder="请输入服务名">
+                    <label for="lastName" class="control-label">参数</label>
+                    <input type="text" class="form-control" name="params" placeholder="请输入参数" value="{{ case.params }}">
                   </div>
                  <div class="col-md-12 margin-bottom-15">
-                  <label for="lastName" class="control-label">方法名</label>
-                  <input type="text" class="form-control" name="func" placeholder="方法名">
-                 </div>
-                    <div class="col-md-12 margin-bottom-15">
-                  <label for="lastName" class="control-label">请求名</label>
-                  <input type="text" class="form-control" name="request" placeholder="请求名">
+                  <label for="lastName" class="control-label">预期结果</label>
+                  <input type="text" class="form-control" name="expect_result" placeholder="预期结果" value="{{ case.ex_result }}">
                  </div>
                   <div class="col-md-12 margin-bottom-15">
-                   <label for="lastName" class="control-label">接口开发者</label>
-                   <input type="text" class="form-control" name="developer" placeholder="接口开发者">
+                   <label for="lastName" class="control-label">用例开发者</label>
+                   <input type="text" class="form-control" name="developer" placeholder="用例开发者" value = "{{ case.tester }}">
                   </div>
-                   <div class="col-md-12 margin-bottom-15">
-                    <label for="firstName" class="control-label">备注</label>
-                    <textarea name ="notes" class="form-control" rows="4" ></textarea>
-                    </div>
-
                 </div>
-
-
               <div class="row templatemo-form-buttons">
                 <div class="col-md-12 ">
                   <button type="submit" class="btn btn-primary">保存</button>
-                  <a href= '' class="btn btn-default">取消</a>
+                  <a href= '/case_list/?projectid={{ project_id }}&id={{ interface_id }}' class="btn btn-default">取消</a>
                 </div>
                   <div class="col-md-12 margin-bottom-15">
                   {{ error }}
@@ -111,6 +97,7 @@
               </div>
                   {% csrf_token %}
             </form>
+
           </div>
         </div>
       </div>

@@ -36,7 +36,6 @@ class GrpcUtil(object):
     def getResponse(self,func,reuqestName,context):
         requset = getattr(self.stubObject,func)
         boby = self.requestBody(reuqestName,context)
-        print requset(boby)
         return requset(boby)
 
 '''
