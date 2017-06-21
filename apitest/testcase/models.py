@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
-
+from jsonfield import JSONField
+import ast
 # Create your models here.
 #test case models
 class Testcase(models.Model):
@@ -30,4 +31,11 @@ class Interface(models.Model):
     developer = models.CharField(max_length=20)
     notes = models.CharField(max_length=100)
 
-
+class Report(models.Model):
+    test_time = models.CharField(max_length=20)
+    total_case = models.CharField(max_length=10)
+    fail_case = models.CharField(max_length=10)
+    success_case = models.CharField(max_length=10)
+    test_result = models.CharField(max_length=10)
+    rate = models.FloatField()
+    detail_list = models.CharField(max_length=10000,null=True)

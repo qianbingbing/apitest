@@ -26,14 +26,14 @@
     <div class="template-page-wrapper">
       <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">
-            {% for list in dates %}
+            {% for i in dates %}
               <li class="sub">
             <a href="javascript:;">
-              <i class="fa fa-database"></i>{{ list.time }}<div class="pull-right"><span class="caret"></span></div>
+              <i class="fa fa-database"></i>{{ i }}<div class="pull-right"><span class="caret"></span></div>
             </a>
             <ul class="templatemo-submenu">
-              <li><a href="/report_detail/">11111</a></li>
-              <li><a href="/report_detail/">22222</a></li>
+              <li><a href="/report_detail/">2017-6-20 16:30:30</a></li>
+              <li><a href="/report_detail/">2017-6-20 16:25:30</a></li>
             </ul>
           </li>
             {% endfor %}

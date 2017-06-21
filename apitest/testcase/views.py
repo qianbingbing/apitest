@@ -44,21 +44,33 @@ def project(request):
 def add_Project(request):
     return render(request,"addProject.html")
 
+
 #测试报告页面
 def report_list(request):
-    dates=[{"time":"2017-5-11"},{"time":"2017-5-10"},{"time":"2017-5-9"}]
-    return render(request,'reportlist.html',{"dates":dates})
+    dates1 = []
+    reports =  query_json("Report")
+    for i in reports:
+        dates1.append(i.test_time.decode('utf-8')[0:10])
+    dates2 = list(set(dates1))
+    dates2.sort(key=dates1.index)
+    if len(dates2) >5:
+        dates2 = dates2[0:4]
+    return render(request,'reportlist.html',{"dates":dates2})
 
 
 def report_detail(request):
-
     return render(request,'result.html')
+
+
+
 
 #添加接口页面
 def add_interface(request):
     id = request.GET.get('projectid')
     logger.debug(id)
     return render(request, 'addInterface.html',{"id":id})
+
+
 
 #编辑接口页面
 def edit_interface(request):
@@ -235,24 +247,70 @@ def update_testcase(request):
 
 
 def run_test(request):
-
- if request.method == 'POST':
+    success = 0
+    fail = 0
+    total = 0
+    test_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+    test_detail_list = []
+    if request.method == 'POST':
         interface_ids = request.POST.getlist('interface_id',"")
-        logger.debug(interface_ids)
+        interface_detail = {}
         for i in interface_ids:
             interface = query_json("Interface",{"id":i})
-            testcase = query_json("Testcase",{"interface_id":i})
-            a = GrpcUtil.GrpcUtil(interface[0].url,interface[0].service_name)
-            #str = json.dumps(testcase[0].params, encoding="UTF-8", ensure_ascii=False, sort_keys=False, indent=4)
-            jsondata = json.loads(testcase[0].params,encoding='utf-8')
-            response = a.getResponse(interface[0].func,interface[0].request,jsondata)
-            logger.debug(type(response.resultMsg))
-            if testcase[0].ex_result == response.resultMsg:
-                print
-            else:
-                print
-        return HttpResponseRedirect('/index')
+            testcases = query_json("Testcase",{"interface_id":i})
+            func = GrpcUtil.GrpcUtil(interface[0].url,interface[0].service_name)
+            case_details = []
+            success_case = 0
+            fail_case = 0
+            for i in testcases:
+                jsondata = json.loads(i.params,encoding='utf-8')
+                response = func.getResponse(interface[0].func,interface[0].request,jsondata)
+                case_detail ={}
+                case_detail['title'] = i.title
+                case_detail['parms'] = i.params
+                case_detail['ex_result'] = i.ex_result
+                case_detail['real_result'] = response.resultMsg
+                case_details.append(case_detail)
+                if i.ex_result == response.resultMsg:
+                    success_case += 1
+                    success += 1
+                else:
+                    fail_case += 1
+                    fail += 1
+            division = format(float(success_case)/float(success_case+fail_case),'.2f')
 
+            if division == 0.00:
+                result = u'全部失败'
+            elif division == 1.00:
+                result = u'全部通过'
+            else:
+                result = u'部分通过'
+            interface_detail['name'] = interface[0].name
+            interface_detail['func'] = interface[0].func
+            interface_detail['result'] = result
+            interface_detail['detail'] = case_details
+            test_detail_list.append(interface_detail)
+
+
+        rate = format(float(success)/float(success+fail),'.2f')
+        if rate == 0.00:
+            test_result = u'全部失败'
+        elif rate == 1.00:
+            test_result = u'全部通过'
+        else:
+            test_result = u'部分通过'
+
+        data ={}
+        data['test_time'] = test_time
+        data['total_case'] = total
+        data['fail_case'] = fail
+        data['success_case'] = success
+        data['test_result'] = test_result
+        data['rate'] = rate
+        data['detail_list'] = json.dumps(test_detail_list)
+        print data['detail_list']
+        store_json("Report",data)
+        return HttpResponseRedirect('/index')
 
 def add_testcase(request):
     interface_id = request.GET.get('interface_id')
