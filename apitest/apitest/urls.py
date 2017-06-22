@@ -38,5 +38,6 @@ urlpatterns = [
     url(r'delete_testcase/', views.delete_testcase),
     url(r'edit_testcase/', views.edit_testcase),
     url(r'update_testcase/', views.update_testcase),
-    url(r'report_detail/',views.report_detail)
+    url(r'report_detail/',views.report_detail),
+    url(r'cases_detail/',views.cases_detail)
 ]

@@ -17,29 +17,32 @@
             </h1>
         </div>
     </div>
+    {% for data in datas %}
+
     <div class="panel panel-info">
         <div class="panel-heading">测试结果</div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h3>执行时间: <span class="">2017-5-12 13:14:15</span></h3>
+            <h3>执行时间: <span class="">{{ data.test_time }}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>接口总数: <span class="label label-success">3</span></h3>
+            <h3>接口总数: <span class="label label-success">{{ data.interface_number }}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>用例总数: <span class="label label-success">3</span></h3>
+            <h3>用例总数: <span class="label label-success">{{ data.total_case }}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>测试通过: <span class="label label-success">3</span></h3>
+            <h3>测试通过: <span class="label label-success">{{ data.success_case }}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>测试失败: <span class="label label-danger">1</span></h3>
+            <h3>测试失败: <span class="label label-danger">{{ data.fail_case}}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>通过率: <span class="label label-warning">2%</span></h3>
+            <h3>通过率: <span class="label label-warning">{{ data.rate }}</span></h3>
         </div>
     </div>
+   {% endfor %}
     <div>
         <br/>
         <br/>
@@ -48,6 +51,7 @@
         <div class="panel-heading">运行情况查看</div>
     </div>
    <div class="table-responsive">
+
                 <table class="table table-striped table-hover table-bordered">
                   <thead>
                     <tr>
@@ -57,66 +61,19 @@
                       <th>详情</th>
                     </tr>
                   </thead>
+                    {% for detail in details %}
                   <tbody>
-                  {% for i in cases %}
                   <tr>
-                      <td>{{ i.title}}</td>
-                      <td>{{ i.params }}</td>
-                      <td>{{ i.ex_result }}</td>
-                      <td>{{ i.tester }}</td>
-                  {% endfor %}
+                      <td>{{ detail.interface_name}}</td>
+                      <td>{{ detail.func_name }}</td>
+                      <td>{{ detail.interface_result }}</td>
+                      <td><a href="/cases_detail/?id={{ detail.id }}&name={{ detail.interface_name }}">查看详情情况</a></td>
                   </tbody>
+                    {% endfor %}
                 </table>
               </div>
 
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="list-group">
-                {% for ls in leftside %}
-                    <li class="list-group-item"><a href="#{{ ls.code }}">{{ ls.code }} - {{ ls.title }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div class="col-md-9">
-            {{ x.result }}
-            {% for x in rst_data %}
-                <div class="panel-group" id="accordion">
-                {% if x.result == 'pass' %}
-                    <div class="panel panel-success">
-                {% elif x.result == 'fail' %}
-                    <div class="panel panel-danger">
-                {% elif x.result == 'no except result' %}
-                    <div class="panel panel-warning">
-                {% endif %}
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#{{ x.sendData.testid }}">
-                        {{ x.sendData.testid }} - {{ x.sendData.csbt }}
-                    </a>
-                </h4>
-            </div>
-            <div id="{{ x.sendData.testid }}" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <b>{{ x.sendData.fssj }}</b><br>
-                    {{ x.sendData.csbt }}<br>
-                    {{ x.sendData.fsfs }}<br>
-                    {{ x.sendData.alms }}<br>
-                    {{ x.sendData.fsdz }}<br>
-                    {{ x.sendData.fscs }}
-                    <hr>
-                    {% for v in x.dealData %}
-                        {{ v }}<br>
-                    {% endfor %}
-                </div>
-            </div>
-            </div>
-            </div>
-                <p></p>
-            {% endfor %}
-            </div>
-            </div>
-        </div>
-    </div>
+
 
 </div>
 </body>

@@ -29,12 +29,18 @@
             {% for i in dates %}
               <li class="sub">
             <a href="javascript:;">
-              <i class="fa fa-database"></i>{{ i }}<div class="pull-right"><span class="caret"></span></div>
+              <i class="fa fa-database"></i>{{ i.time }}<div class="pull-right"><span class="caret"></span></div>
             </a>
+                  {% for j in i.data %}
             <ul class="templatemo-submenu">
-              <li><a href="/report_detail/">2017-6-20 16:30:30</a></li>
-              <li><a href="/report_detail/">2017-6-20 16:25:30</a></li>
+                    {% if j == '暂无测试报告'  %}
+              <li><a href="">{{ j}}</a></li>
+                    {% else %}
+              <li><a href="/report_detail/?id={{ j.id }}">{{ j.test_time}}</a></li>
+                    {% endif %}
             </ul>
+                  {% endfor %}
+
           </li>
             {% endfor %}
         </ul>

@@ -32,10 +32,17 @@ class Interface(models.Model):
     notes = models.CharField(max_length=100)
 
 class Report(models.Model):
+    report_id = models.CharField(max_length=40,null=True)
     test_time = models.CharField(max_length=20)
+    interface_number = models.CharField(max_length=10,null=True)
     total_case = models.CharField(max_length=10)
     fail_case = models.CharField(max_length=10)
     success_case = models.CharField(max_length=10)
-    test_result = models.CharField(max_length=10)
     rate = models.FloatField()
-    detail_list = models.CharField(max_length=10000,null=True)
+
+class Report_detail(models.Model):
+    report_id =models.CharField(max_length=40)
+    interface_name = models.CharField(max_length=20)
+    func_name = models.CharField(max_length=20)
+    interface_result = models.CharField(max_length=10)
+    case_detail = models.CharField(max_length=10000)
