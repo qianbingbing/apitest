@@ -107,7 +107,7 @@
                       <td style="width: 120px;">
                         <!-- Split button -->
                         <div class="btn-group">
-                          <button type="button" class="btn btn-info">操作</button>
+                          <a type="button" class="btn btn-info" href="/case_list/?projectid={{ i.project_id }}&id={{ i.id }}">用例</a>
                           <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
@@ -115,7 +115,6 @@
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="/edit_interface/?id={{ i.id }}">编辑</a></li>
                             <li><a href="/delete_interface/?id={{ i.id }}&projectid={{ i.project_id }}">删除</a></li>
-                            <li><a href="/case_list/?projectid={{ i.project_id }}&id={{ i.id }}">用例</a></li>
                           </ul>
                         </div>
                       </td>

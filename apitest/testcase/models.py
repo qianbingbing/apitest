@@ -38,7 +38,7 @@ class Report(models.Model):
     total_case = models.CharField(max_length=10)
     fail_case = models.CharField(max_length=10)
     success_case = models.CharField(max_length=10)
-    rate = models.FloatField()
+    rate = models.CharField(max_length=10)
 
 class Report_detail(models.Model):
     report_id =models.CharField(max_length=40)

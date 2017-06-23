@@ -55,8 +55,9 @@ def add_Project(request):
 
 
 
-#测试报告页面
-#datas列表反转为什么不选择reverse ？:
+#测试报告-列表
+#use reserve（）to reverse a list  the more pythonic？ like this
+#list[::-1] this is use list slice
 def report_list(request):
     dates1 = []
     #最五天的日期的列表
@@ -71,7 +72,6 @@ def report_list(request):
         #判断查询结果是否为空，为空则说明当天没有测试报告生成
         if queryset:
             for i in queryset:
-                print i
                 data = {}
                 data['id'] = i.id
                 data['test_time'] = i.test_time
@@ -82,7 +82,6 @@ def report_list(request):
         value['data'] = datas[::-1]
         dates1.append(value)
     dates1.reverse()
-    print dates1
 
     #reports =  query_json("Report")
     #for i in reports:
@@ -94,35 +93,30 @@ def report_list(request):
 
     return render(request,'reportlist.html',{"dates":dates1})
 
-
-
+#测试报告-详情
 def report_detail(request):
     id = request.GET.get('id')
-    print "result_id:" + id
     datas = query_json("Report",{"id":id})
     report_id = datas[0].report_id
     details = query_json("Report_detail",{"report_id":report_id})
-    print details
+    return render(request,'result.html',{"datas":datas,"details":details,"report_id":id})
 
-    return render(request,'result.html',{"datas":datas,"details":details})
-
+#测试报告-详情-用例详情
 def cases_detail(request):
     id = request.GET.get('id')
+    report_id = request.GET.get('report_id')
     name = request.GET.get('name')
-    print "detail_id:" + id
-    print "name:"+ name
     datas = query_json("Report_detail",{"id":id})
-    return render(request,'index.html',{"datas":datas,"name":name})
+    cases_details = datas[0].case_detail
+    return render(request,'case_detail.html',{"cases_details":json.loads(cases_details),"name":name,"report_id":report_id})
 
-#添加接口页面
+#添加接口
 def add_interface(request):
     id = request.GET.get('projectid')
     logger.debug(id)
     return render(request, 'addInterface.html',{"id":id})
 
-
-
-#编辑接口页面
+#编辑接口
 def edit_interface(request):
     id = request.GET.get('id')
     object = query_json("Interface",{"id":id})
@@ -152,7 +146,7 @@ def login_action(request):
         else:
             return render(request, 'login.html', {'error': 'username or password error!'})
 
-#保存接口
+#保存接口信息
 def save_interface(request):
     if request.method == 'POST':
         project_id = request.POST.get('id',"")
@@ -186,7 +180,7 @@ def save_interface(request):
             logger.debug(str)
             logger.debug(type(str))
      '''
-#保存项目
+#保存项目信息
 def save_project(request):
     if request.method == 'POST':
         name = request.POST.get('projectName',"")
@@ -204,17 +198,13 @@ def save_project(request):
             jsons_data["remark"] = notes
             store_json("Project",jsons_data)
             return HttpResponseRedirect('/index')
-
 #删除接口
 def delete_interface(requset):
     project_id = requset.GET.get('projectid')
     id = requset.GET.get('id')
-    delete_json("Interface",id)
+    delete_json("Interface",{"id":id})
+    delete_json("Testcase",{"interface_id":id})
     return HttpResponseRedirect('/project.html/?projectid=%s'%project_id)
-
-
-
-
 #更新接口信息
 def update_interface(request,cid):
     if request.method == 'POST':
@@ -246,7 +236,7 @@ def update_interface(request,cid):
 
 
 
-
+#用例列表
 def case_list(request):
     interface_id = request.GET.get('id')
     projectid = request.GET.get('projectid')
@@ -255,20 +245,15 @@ def case_list(request):
     return render(request,"testcaselist.html",{"project":project,"cases":testcase,"interface_id":interface_id,
                                                "projectid":projectid})
 
-
-
-
+#删除测试用例
 def delete_testcase(request):
     project_id = request.GET.get('project_id')
     interface_id = request.GET.get('interface_id')
     id = request.GET.get('case_id')
-    delete_json("Testcase",id)
+    delete_json("Testcase",{"id":id})
     return HttpResponseRedirect('/case_list/?projectid=%s&id=%s'%(project_id,interface_id))
 
-
-
-
-
+#编辑测试用例
 def edit_testcase(request):
     id = request.GET.get('case_id')
     project_id = request.GET.get('project_id')
@@ -309,7 +294,6 @@ def run_test(request):
     fail = 0
     id = str(uuid.uuid4())
     test_time = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
-    test_detail_list = []
     if request.method == 'POST':
         interface_ids = request.POST.getlist('interface_id',"")
         interface_number =len(interface_ids)
@@ -331,18 +315,21 @@ def run_test(request):
                 case_detail['real_result'] = response.resultMsg
                 case_details.append(case_detail)
                 if i.ex_result == response.resultMsg:
+                    case_detail['result'] = 'success'
                     success_case += 1
                     success += 1
                 else:
+                    case_detail['result'] = 'fail'
                     fail_case += 1
                     fail += 1
+
             division = format(float(success_case)/float(success_case+fail_case),'.2f')
-            if division == 0.00:
+            if division == '0.00':
                 result = u'全部失败'
-            elif division == 1.00:
+            elif division == '1.00':
                 result = u'全部通过'
             else:
-                 result = u'部分通过'
+                result = u'部分通过'
 
             interface_detail['report_id'] = id
             interface_detail['interface_name'] = interface[0].name
@@ -350,9 +337,7 @@ def run_test(request):
             interface_detail['interface_result'] = result
             interface_detail['case_detail'] = json.dumps(case_details,encoding="UTF-8", ensure_ascii=False, sort_keys=False, indent=4)
             store_json("Report_detail",interface_detail)
-
-
-        rate = format(float(success)/float(success+fail),'.2f')
+        rate = format((float(success)/float(success+fail))*100,'.0f')
         data ={}
         data['report_id'] = id
         data['test_time'] = test_time
@@ -366,11 +351,14 @@ def run_test(request):
 
 
 
+
 #跳转到添加测试用例
 def add_testcase(request):
     interface_id = request.GET.get('interface_id')
     project_id = request.GET.get('projectid')
     return render(request,"addtestcase.html",{"interface_id":interface_id,"project_id":project_id})
+
+
 
 
 #保存添加测试用例
@@ -405,9 +393,9 @@ def store_json(tablename,jsondata):
     table.objects.create(**jsondata)
 
 #delete from database
-def delete_json(tablename,index):
+def delete_json(tablename,query):
     table = getattr(models,tablename)
-    table.objects.filter(id=index).delete()
+    table.objects.filter(**query).delete()
 
 #query data from  database
 def query_json(tablename,context=None):

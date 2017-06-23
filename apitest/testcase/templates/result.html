@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>报告详情</title>
-    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/templatemo_main.css">
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
     <script src="../static/js/templatemo_script.js"></script>
 </head>
 <body>
 <div class="container">
+    <div class="">
     <div class="row">
+        <ol class="breadcrumb">
+            <li><a href="/result/">报告列表</a></li>
+            <li class="active">测试报告</li>
+          </ol>
         <div class="page-header">
             <h1>接口测试报告
                 <small>Design By qianbingbing</small>
@@ -18,13 +23,12 @@
         </div>
     </div>
     {% for data in datas %}
-
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
         <div class="panel-heading">测试结果</div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h3>执行时间: <span class="">{{ data.test_time }}</span></h3>
+            <h3>执行时间: <span class="label-info">{{ data.test_time }}</span></h3>
         </div>
         <div class="col-md-4">
             <h3>接口总数: <span class="label label-success">{{ data.interface_number }}</span></h3>
@@ -39,7 +43,7 @@
             <h3>测试失败: <span class="label label-danger">{{ data.fail_case}}</span></h3>
         </div>
         <div class="col-md-4">
-            <h3>通过率: <span class="label label-warning">{{ data.rate }}</span></h3>
+            <h3>通过率: <span class="label label-warning">{{ data.rate }}%</span></h3>
         </div>
     </div>
    {% endfor %}
@@ -47,7 +51,7 @@
         <br/>
         <br/>
     </div>
-    <div class="panel panel-info">
+    <div class="panel panel-primary">
         <div class="panel-heading">运行情况查看</div>
     </div>
    <div class="table-responsive">
@@ -67,29 +71,12 @@
                       <td>{{ detail.interface_name}}</td>
                       <td>{{ detail.func_name }}</td>
                       <td>{{ detail.interface_result }}</td>
-                      <td><a href="/cases_detail/?id={{ detail.id }}&name={{ detail.interface_name }}">查看详情情况</a></td>
+                      <td><a href="/cases_detail/?id={{ detail.id }}&name={{ detail.interface_name }}&report_id={{ report_id }}">查看详情情况</a></td>
                   </tbody>
                     {% endfor %}
                 </table>
               </div>
-
-
-
+    </div>
 </div>
 </body>
- <script>
-            $(function () {
-                $(window).scroll(function () {
-                    if ($(this).scrollTop() != 0) {
-                        $("#toTop").fadeIn();
-                    } else {
-                        $("#toTop").fadeOut();
-                    }
-                });
-                $("body").append("<div id=\"toTop\" style=\"border:1px solid #444;background:#333;color:#fff;text-align:center;padding:10px 13px 7px 13px;position:fixed;bottom:10px;right:10px;cursor:pointer;display:none;font-family:verdana;font-size:22px;\">^</div>");
-                $("#toTop").click(function () {
-                    $("body,html").animate({scrollTop: 0}, 800);
-                });
-            });
-        </script>
 </html>
