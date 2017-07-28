@@ -1,0 +1,109 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IProductServiceProto";
+
+// 慢钱宝app产品服务
+service IProductService {
+
+    // 获取慢钱宝产品列表
+    rpc GetProductPaging (GetProductPagingRequest) returns (GetProductPagingResponse) {
+    }
+
+    // 获取产品详情
+    rpc GetProductInfo (GetProductInfoRequest) returns (GetProductInfoResponse) {
+    }
+
+    // 设置产品提醒
+    rpc SetProductRemind (SetProductRemindRequest) returns (SetProductRemindResponse) {
+    }
+
+    // 取消产品开售提醒
+    rpc CancelProductRemind (CancelProductRemindRequest) returns (CancelProductRemindResponse) {
+    }
+
+    // 体验标产品详情
+    rpc GetExperienceProductInfo (GetExperienceProductInfoRequest) returns (GetExperienceProductInfoResponse) {
+    }
+
+    // 新手标产品详情
+    rpc GetNewbieProductInfo (GetNewbieProductInfoRequest) returns (GetNewbieProductInfoResponse) {
+    }
+}
+
+// 产品列表 请求参数
+message GetProductPagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+}
+
+// 产品列表 响应参数
+message GetProductPagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated ProductInfo productInfoList = 3; // 产品信息
+}
+
+// 产品详情 请求参数
+message GetProductInfoRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string productCode = 2; // 产品编号
+}
+
+// 产品详情 响应参数
+message GetProductInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    ProductInfo productInfo = 2; // 产品详情
+    repeated ProductInvestInfo productInvestInfoList = 3; // 投资记录
+    repeated ProductQuestionInfo productQuestionInfoList = 4; // 常见问题
+}
+
+// 设置产品提醒 请求参数
+message SetProductRemindRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string productCode = 2; // 产品编号
+}
+
+// 设置产品提醒 响应参数
+message SetProductRemindResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 取消产品开售提醒  请求参数
+message CancelProductRemindRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string productCode = 2; // 产品编号
+}
+
+// 取消产品开售提醒 响应参数
+message CancelProductRemindResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 体验标产品详情 请求参数
+message GetExperienceProductInfoRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string productCode = 2; // 产品编号
+}
+
+// 体验标产品详情 响应参数
+message GetExperienceProductInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    ExperienceProductInfo experienceProductInfo = 2; // 产品信息
+}
+
+// 新手标产品详情 请求参数
+message GetNewbieProductInfoRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string productCode = 2; // 产品编码
+}
+
+// 新手标产品详情 响应参数
+message GetNewbieProductInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    NewbieProductInfo newbieProductInfo = 2; // 产品信息
+    repeated ProductInvestInfo productInvestInfoList = 3; // 投资记录
+    repeated ProductQuestionInfo productQuestionInfoList = 4; // 常见问题
+}

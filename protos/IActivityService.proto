@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IActivityServiceProto";
+
+// 慢钱宝app精彩活动服务api
+service IActivityService {
+
+    // 分页获取精彩活动
+    rpc GetActivityPaging (GetActivityPagingRequest) returns (GetActivityPagingResponse) {
+    }
+}
+
+// 分页获取精彩活动 请求参数
+message GetActivityPagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+}
+
+// 分页获取精彩活动 响应参数
+message GetActivityPagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated ActivityInfo activityInfoList = 3; // 活动信息
+}

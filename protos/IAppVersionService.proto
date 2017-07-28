@@ -1,0 +1,29 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IAppVersionServiceProto";
+
+// 慢钱宝app版本服务
+service IAppVersionService {
+
+    // 获取app最新版本
+    rpc GetNewVersion (GetNewVersionRequest) returns (GetNewVersionResponse) {
+    }
+
+}
+
+// 获取最新版本 请求参数
+message GetNewVersionRequest {
+    RequestHeader requestHeader = 1; // 请求头
+}
+
+// 获取最新版本 响应参数
+message GetNewVersionResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    AppVersionInfo appVersionInfo = 2; // 最新的版本信息,当前是最新的版本,则不返回
+}
+
+
+

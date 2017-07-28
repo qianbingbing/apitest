@@ -1,0 +1,143 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IUserServiceProto";
+
+// 慢钱宝app用户服务
+service IUserService {
+
+    // 登录
+    rpc Login (LoginRequest) returns (LoginResponse) {
+    }
+
+    // 发送注册验证码
+    rpc SendRegistMessageCode (SendRegistMessageCodeRequest) returns (SendRegistMessageCodeResponse) {
+    }
+
+    // 注册
+    rpc Regist (RegistRequest) returns (RegistResponse) {
+    }
+
+    // 获取当前用户的账户信息
+    rpc GetUserAccountInfo (GetUserAccountInfoRequest) returns (GetUserAccountInfoResponse) {
+    }
+
+    // 发送重置登录密码的短信验证码
+    rpc SendResetPasswordMessageCode (SendResetPasswordMessageCodeRequest) returns (SendResetPasswordMessageCodeResponse) {
+    }
+
+    // 重置登录密码
+    rpc ResetLoginPassword (ResetLoginPasswordRequest) returns (ResetLoginPasswordResponse) {
+    }
+
+    // 验证密码（修改手势密码时 验证密码）
+    rpc CheckPassword (CheckPasswordRequest) returns (CheckPasswordResponse) {
+    }
+
+    // 资金明细
+    rpc GetUserAssetDetailPagingGetUserAssetDetailPaging (GetUserAssetDetailPagingRequest) returns (GetUserAssetDetailPagingResponse) {
+    }
+}
+
+// 登录 请求参数
+message LoginRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string mobile = 2; // 手机号
+    string password = 3; // md5加密过的密码
+}
+
+
+// 登录 响应参数
+message LoginResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    UserInfo userInfo = 2; // 登录成功后的用户信息
+    string sessionId = 3; // 登录成功后的app session
+
+
+}
+
+// 发送注册验证码 请求参数
+message SendRegistMessageCodeRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string mobile = 2; // 手机号
+}
+
+// 发送注册验证码 响应参数
+message SendRegistMessageCodeResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 注册 请求参数
+message RegistRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string mobile = 2; // 手机号
+    string messageCode = 3; // 短信验证码
+    string password = 4; //设置的登录密码(md5加密过后的)
+}
+
+// 注册 响应参数
+message RegistResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    UserInfo userInfo = 2; // 注册成功后返回
+}
+
+// 当前用户的账号信息 请求参数
+message GetUserAccountInfoRequest {
+    RequestHeader requestHeader = 1; // 请求头
+}
+
+// 当前用户的账户信息 响应参数
+message GetUserAccountInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    UserAccountInfo userAccountInfo = 2; // 账户信息
+}
+
+// 发送重置登录密码的短信验证码 请求参数
+message SendResetPasswordMessageCodeRequest {
+    RequestHeader requestHeader = 1; // 请求头
+}
+
+// 发送重置登录密码的短信验证码 响应参数
+message SendResetPasswordMessageCodeResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 重置登录密码 请求参数
+message ResetLoginPasswordRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string mobile = 2; // 手机号
+    string messageCode = 3; // 短信验证码
+    string password = 4; //设置的登录密码(md5加密过后的)
+}
+
+// 重置登录密码 响应参数
+message ResetLoginPasswordResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 验证密码（修改手势密码时） 请求参数
+message CheckPasswordRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string mobile = 2; // 手机号
+    string password = 3; // md5加密过的密码
+}
+
+//  验证密码（修改手势密码时） 响应参数
+message CheckPasswordResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+}
+
+// 资金明细 请求参数
+message GetUserAssetDetailPagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+}
+
+// 资金明细 响应参数
+message GetUserAssetDetailPagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated UserAssetDetailInfo assetDetailInfoList = 3; // 资金明细
+}

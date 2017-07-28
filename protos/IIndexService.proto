@@ -1,0 +1,30 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IIndexServiceProto";
+
+// 慢钱宝app发现服务
+service IIndexService {
+
+    // 获取首页信息
+    rpc GetIndexInfo (GetIndexInfoRequest) returns (GetIndexInfoResponse) {
+    }
+
+}
+
+// 获取首页信息 请求参数
+message GetIndexInfoRequest {
+    RequestHeader requestHeader = 1; // 请求头
+}
+
+// 获取首页信息 响应参数
+message GetIndexInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    repeated BannerInfo bannerInfoList = 2; // banner信息
+    repeated ActivityInfo activityInfoList = 3; // 精彩活动 暂时去掉这个模块
+    repeated RecommendPlateInfo RecommendPlateInfoList = 4; // 产品模块
+    ExperienceProductInfo experienceProductInfo = 5; // 体验标产品
+    NewbieProductInfo newbieProductInfo = 6; // 新手标产品
+}

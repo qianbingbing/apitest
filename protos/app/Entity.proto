@@ -1,0 +1,311 @@
+syntax = "proto3";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.entity.app";
+
+// 每次请求的头信息
+message RequestHeader {
+    string mobileToken = 1; // 手机的token唯一标识
+    MobileType mobileType = 2; // 客户端类型
+    string appVersion = 3; // 当前APP的版本号
+    string sessionId = 4; // app session id
+    string channelId = 5; // 渠道id
+    string platformUserId = 6; // 用户平台编号
+}
+
+// 每次响应的头信息
+message ResponseHeader {
+    int32 code = 1; // 状态码 0.正常 非0.异常 -100.需要登录 -101.手机号已被注册 -200.需要强制升级 -300.服务器异常
+    string msg = 2; // 错误信息 code!=0时,有值
+}
+
+// 分页信息
+message PagingInfo {
+    int32 totalPage = 1; // 总页数
+    int32 pageSize = 2; // 每页条数
+    int32 pageNumber = 3; // 当前页码
+}
+
+// 用户基本信息
+message UserInfo {
+    string platformUserId = 1; // 平台编号
+    string mobile = 2; // 手机
+    bool authenticate = 3; // 是否实名认证
+    string realName = 4; // 真实姓名
+    bool openAccount = 5; // 是否开户
+    bool bindCard = 6; // 是否绑卡
+}
+
+// 用户绑定的银行卡
+message UserBankCardInfo {
+    string reservedMobile = 1; // 银行预留手机号
+    string cardNo = 2; // 银行卡号,加密的
+    string bankName = 3; // 银行分行名称
+}
+
+// 用户账户信息
+message UserAccountInfo {
+    double totalAssets = 1; // 总资产
+    double totalIncome = 2; // 累计收益
+    string idCard = 3; // 身份证,加密的
+    string bankCard = 4; // 银行卡账号,加密的
+}
+
+// 产品信息
+message ProductInfo {
+    string productCode = 1; // 产品编号（页面显示）
+    string productName = 2; // 产品名称
+    double annualIncome = 3; // 预期年化收益
+    int32 closedPeriod = 4; // 投资期限/封闭期(天)
+    int32 threshold = 5; // 起投金额
+    ProductStatus productStatus = 6; // 产品状态
+    string collectStartTime = 7; // 募集开始时间 yyyy-MM-dd HH:mm:ss
+    string establishDate = 8; // 产品成立时间 yyyy-MM-dd HH:mm:ss
+    string endDate = 9; // 产品完结时间/到期时间 yyyy-MM-dd HH:mm:ss
+    int64 totalAmount = 10; // 募集金额(元)
+    string buyRule = 11; // 买入规则
+    string fetchRule = 12; // 取出规则
+    string fundToAccountTimeDescprition = 13; // 到账时间描述
+    string calculateIncomeDescription = 14; // 收益计算描述
+    string financingEnterprise = 15; // 融资企业
+    string assetHolder = 16; // 资产持有人
+    string listedOrgan = 17; // 挂牌机构
+    repeated ProductFileInfo productFileInfoList = 18; // 项目资料
+    int64 countdownMillisecond = 19; // 产品募集倒计时时间(毫秒)
+    bool remind = 20; // 是否设置了开售提醒
+    string productDescription = 21; // 产品描述
+    double yuEBaoIncome = 22; // 余额宝同期收益
+    double extraAnnualIncome = 23; // 额外预期年化收益
+    double tenThousandIncome = 24; // 万元预期收益
+    double tenThousandYuEBaoIncome = 25; // 余额宝的万元预期收益
+}
+
+// 产品项目资料信息
+message ProductFileInfo {
+    string fileName = 1; // 项目产品资料名称
+    string fileUrl = 2; // 项目pdf url
+}
+
+// 产品投资记录
+message ProductInvestInfo {
+    string investName = 1; // 投资人姓名,服务端处理匿名
+    string investTime = 2; // 投资时间 yyyy-MM-dd HH:mm:ss
+    string investMoney = 3; // 投资金额(元),服务端返回带单位
+}
+
+// 产品常见问题
+message ProductQuestionInfo {
+    string questionContent = 1; // 产品问题
+    string answerContent = 2; // 回答内容
+}
+
+// banner信息
+message BannerInfo {
+    string imageUrl = 1; // banner图片地址
+    string linkUrl = 2; // 链接地址
+}
+
+// 精彩活动信息
+message ActivityInfo {
+    int32 id = 1; // 活动编号
+    string linkUrl = 2; // 活动链接地址
+    string smallImageUrl = 3; // 小图地址(发现页的)
+    string imageUrl = 4; // 列表的图片地址
+    string publishTime = 5; // 发布时间 yyyy-MM-dd
+    string description = 6; //活动描述
+    ActivityStatus activityStatus = 7; // 状态
+}
+
+// 产品模块(产品推荐)
+message RecommendPlateInfo {
+    string name = 1; // 模块名字
+    string description = 2; // 模块描述
+    int32 sequence = 3; // 展示顺序
+    repeated ProductInfo productInfoList = 4; // 产品信息
+}
+
+// 版本信息
+message AppVersionInfo {
+    int32 id = 1; // 版本编号
+    string version = 2; // 版本号
+    string downloadUrl = 3; // 下载地址
+    bool forceUpdate = 4; // 是否强制升级
+    string changeLog = 5; // 版本更新日志
+}
+
+// 订单/投资列表
+message OrderInfo {
+    string orderCode = 1; // 订单编码
+    string productCode = 2; // 产品编码
+    OrderType orderType = 3; // 订单类型
+    string productName = 4; // 产品名称
+    string valueDate = 5; // 起息日 yyyy-MM-dd
+    string endDate = 6; // 到期日 yyyy-MM-dd
+    double annualIncome = 7; // 预期年化收益率
+    double investMoney = 8; // 投资金额
+    OrderStatus orderStatus = 9; // 订单状态
+}
+
+// 订单/投资详情
+message OrderDetailInfo {
+    string orderCode = 1; // 订单编码
+    string productCode = 2; // 产品编码
+    OrderType orderType = 3; // 订单类型
+    string productName = 4; // 产品名称
+    string valueDate = 5; // 起息日 yyyy-MM-dd
+    string endDate = 6; // 到期日 yyyy-MM-dd
+    double annualIncome = 7; // 预期年化收益率
+    double investMoney = 8; // 投资金额
+    double originalProfit = 9; // 利息
+    double discountCouponProfit = 10; // 加息
+    OrderStatus orderStatus = 11; // 订单状态
+    repeated OrderOperationRecordInfo orderOperationRecordInfoList = 12; // 操作记录
+    string expireTime = 13; // 订单待付款的情况下使用,订单超时时间(超时之后不能支付)
+}
+
+// 订单操作历史/订单状态变更信息记录
+message OrderOperationRecordInfo {
+    string description = 1; // 描述,如:申请时间、付款时间等
+    string createTime = 2; // 操作时间 yyyy-MM-dd
+}
+
+// 消息信息
+message MessageInfo {
+    string id = 1; // 消息编号
+    string title = 2; // 消息标题
+    string content = 3; // 消息内容
+    string createTime = 4; // 消息时间
+    bool read = 5; // 是否已读
+    MessageType messageType = 6; // 消息类型
+}
+
+// 消息类型
+enum MessageType {
+    ALL_MESSAGE_TYPE = 0; // 所有状态类型(查询用)
+    INVESTMENT = 1; //   投资成功
+    PAY_BACK = 2; // 回款成功
+    RECHARGE = 3; // 充值成功
+    WITHDRAW_CASH = 4; // 提现成功
+    PRODUCT_REMIND_SETTING = 5; // 产品提醒设置成功
+    PRODUCT_REMIND_CANCEL = 6; // 产品提醒取消成功
+    RECEIVE_RED = 7; // 红包领取成功消息
+    ONLINE_COMMISSION_GRANT = 8; // 线上佣金发放成功
+    OFFLINE_COMMISSION_GRANT = 9; // 线下佣金发放成功
+}
+
+// 资金明细
+message UserAssetDetailInfo {
+    string description = 1; // 描述
+    string money = 2; // 金额
+    string time = 3; // 时间
+}
+
+// 体验金产品信息
+message ExperienceProductInfo {
+    string productCode = 1; // 显示的产品编码
+    string productName = 2; // 产品名称
+    string valueTime = 3; // 起息时间
+    int32 closedPeriod = 4; // 投资期限
+    string repaymentMethod = 5; // 还款方式
+    string projectDescription = 6; // 项目说明
+    SpecialProductStatus productStatus = 7; // 产品状态
+    double annualIncome = 8; // 年化收益
+}
+
+// 新手标产品信息
+message NewbieProductInfo {
+    string productCode = 1; // 产品编码
+    string productName = 2; // 产品名称
+    double annualIncome = 3; // 预期年化收益
+    double extraAnnualIncome = 4; // 额外年化收益
+    int32 closedPeriod = 5; // 投资期限
+    int32 threshold = 6; // 起投金额
+    string buyRule = 7; // 买入规则
+    string fetchRule = 8; // 取出规则
+    string valueTimeType = 9; // 起息方式/起息时间
+    string projectDescription = 10; // 项目说明
+    SpecialProductStatus productStatus = 11; // 产品状态
+}
+
+//优惠券记录
+message CouponRecordShowInfo {
+    string id = 1;
+    string couponId = 2;
+    string couponName = 3;
+    CouponShowType couponType = 4;
+    string createTime = 5; // 创建时间 yyyy-MM-dd HH:mm:ss
+    string useTime = 6; // 使用时间 yyyy-MM-dd HH:mm:ss
+    CouponRecordShowStatus couponRecordStatus = 7;
+    string userId = 8;
+    int32 money = 9;
+    double rate = 10;
+    int32 moneyCondition = 11;
+    int32 dayCondition = 12;
+    string limitStartTime = 13; // 开始时间 yyyy-MM-dd HH:mm:ss
+    string limitEndTime = 14; // 结束时间 yyyy-MM-dd HH:mm:ss
+    int32 validity = 15; // 有效期
+    string expiredTime = 16; // 失效时间 yyyy-MM-dd HH:mm:ss
+    string showExpiredTime = 17; // 展示失效时间,如还有2天过期
+    string showContent = 18; // 展示优惠券内容,如投资金额≥100,000元 期限≥90天
+    string showDetail = 19; // 展示优惠券的钱或比率,如100，100万，3.00
+}
+// 订单状态
+enum OrderStatus {
+    ALL = 0; // 全部  （查询全部状态）
+    WAIT_PAY = 1; // 待付款
+    WAIT_INCOME = 2; // 待收益
+    EARNED_INCOME = 3; // 已收益
+    TIME_OUT = 4; // 已超时
+    CANCEL = 5; // 已取消
+}
+
+// 订单类型
+enum OrderType {
+    ALL_ORDER_TYPE = 0; // 全部类型 查询用
+    GENERAL = 1; // 普通订单
+    EXPERIENCE = 2; // 体验金订单
+    NEWBIE = 3; // 新手标订单
+}
+
+// 产品状态
+enum ProductStatus {
+    ON_SALE = 0; // 在售
+    WAIT_SALE = 1; // 待售
+    SALE_OUT = 2; // 售罄
+    FOUND = 3; // 已成立
+    FINISHED = 4; // 已完结
+}
+
+//手机系统类型
+enum MobileType {
+    ANDROID = 0; //ANDROID
+    IOS = 1; //IOS
+}
+
+// 精彩活动的状态
+enum ActivityStatus {
+    All = 0; // 全部
+    WAIT_PUBLISH = 1; //待发布
+    PUBLISHED = 2; //已发布
+    TERMINATED = 3; //已终止
+}
+
+// 体验金/新手标产品状态
+enum SpecialProductStatus {
+    EFFECTIVE = 0; // 有效
+    EXPIRED = 1; // 失效
+}
+// 优惠券记录状态
+enum CouponRecordShowStatus {
+    COUPON_RECORD_ALL_STATUS = 0; // 全部  （查询全部状态）
+    COUPON_RECORD_INIT = 1; // 未领取
+    COUPON_RECORD_USED = 2; // 已使用
+    COUPON_RECORD_EXPIRED = 3; // 过期
+}
+// 优惠券类型
+enum CouponShowType {
+    COUPON_ALL_COUPON_TYPE = 0; // 全部  （查询全部状态）
+    COUPON_REDUCE = 1; // 满减券
+    COUPON_RAISE_RATE = 2; // 加息券
+    COUPON_EXPERIENCE = 3; // 体验券
+}

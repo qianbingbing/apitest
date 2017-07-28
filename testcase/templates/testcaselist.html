@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>测试用例列表 </title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../static/css/templatemo_main.css">
+  <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+</head>
+<body>
+  <div id="main-wrapper">
+    <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar-header">
+        <div class="logo"><h1>API Test System </h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+    </div>
+    <div class="template-page-wrapper">
+      <!--左侧导航栏-->
+      <div class="navbar-collapse collapse templatemo-sidebar">
+        <ul class="templatemo-sidebar-menu">
+          <li>
+            <form class="navbar-form">
+              <input type="text" class="form-control" id="templatemo_search_box" placeholder="Search Testcase...">
+              <span class="btn btn-default">GO</span>
+            </form>
+          </li>
+           <li class="sub">
+           {% for i in project %}
+              <a href="javascript:;">
+              <i class="fa fa-home"></i> {{ i.name }} <div class="pull-right"><span class="caret"></span></div>
+              </a>
+           {% endfor %}
+            {% for project in projects %}
+            <ul class="templatemo-submenu">
+              <li ><a href="/project.html/?projectid={{ project.id }}">{{ project.name }}</a></li>
+            </ul>
+           {% endfor %}
+             <ul class="templatemo-submenu">
+              <li ><a href="/addProject/">+添加项目</a></li>
+            </ul>
+          </li>
+
+          <li><a href="/result/"><i class="fa fa-cubes"></i>测试报告</a></li>
+          <li><a href="javascript:;" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>退出登录</a></li>
+        </ul>
+      </div>
+      <!--右侧内容-->
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+        <!--面包树-->
+          <ol class="breadcrumb">
+            <li><a href="/index">首页</a></li>
+              {% for foo in project %}
+                  <li><a href="/project.html/?projectid={{ foo.id }}">{{ foo.name }}</a> </li>
+              {% endfor %}
+            <li class = "active"> 用例列表</li>
+          </ol>
+          <p>在这里你可以增加，删除，修改，查看接口的测试用例 ......</p>
+        <!--测试用例列表-->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-group pull-right" id="templatemo_sort_btn">
+                <a href="/add_testcase/?projectid={{ projectid }}&interface_id={{ interface_id }}" type="button" class="btn btn-default">添加用例</a>
+              </div>
+              <div class="am-table am-table-striped am-table-hover table-main center">
+                <h4 class="margin-bottom-15">用例列表</h4>
+                <table class="table table-striped table-hover table-bordered">
+                  <thead>
+                    <tr>
+                      <th>用例名称</th>
+                      <th>参数</th>
+                      <th>预期结果</th>
+                      <th>用例开发者</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for i in cases %}
+                  <tr>
+                      <td>{{ i.title}}</td>
+                      <td>{{ i.params }}</td>
+                      <td>{{ i.ex_result }}</td>
+                      <td>{{ i.tester }}</td>
+                      <td style="width: 120px;">
+                        <!-- Split button -->
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-info">编/删</button>
+                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="/edit_testcase/?project_id={{ projectid }}&interface_id={{ i.interface_id }}&case_id={{ i.id }}">编辑</a></li>
+                            <li><a href="/delete_testcase/?project_id={{ projectid }}&interface_id={{ i.interface_id }}&case_id={{ i.id }}">删除</a></li>
+                          </ul>
+                        </div>
+                      </td>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            <nav aria-label="Page navigation">
+              <ul class="pagination">
+              <!--  如果cases 元素 有上一页，则显示上一页箭头且修改链接地址-->
+                  {% if cases.has_previous %}
+                      <li>
+                      <a href="?page={{ cases.previous_page_number }}" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                      </li>
+                  {% endif %}
+              <!--  生成导航标签页面，将view传来的页面相同的码数亮显-->
+                  {% for page in cases.paginator.page_range %}
+                      {% if cases.number == page %}
+                          <li class="active"><a href="?page={{ page }}">{{ page}}</a></li>
+                      {% else %}
+                          <li><a href="?page={{ page }}">{{ page }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+              <!--  如果cases 有下一页，则显示下一页箭头且修改链接地址-->
+                  {% if cases.has_next %}
+                    <li>
+                    <a href="?page={{ cases.next_page_number }}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                  {% endif %}
+
+              </ul>
+            </nav>
+            <!--执行选中的测试用例-->
+              <div class="btn-group pull-right" id="templatemo_sort_btn">
+                <a href="/project.html/?projectid={{ projectid }}" type="button" class="btn btn-primary">返回上一页</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 退出确认弹窗 -->
+      <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="myModalLabel">Are you sure you want to sign out?</h4>
+            </div>
+            <div class="modal-footer">
+              <a href="/login/" class="btn btn-primary">Yes</a>
+              <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+</div>
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/templatemo_script.js"></script>
+  </body>
+</html>

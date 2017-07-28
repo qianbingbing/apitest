@@ -1,0 +1,9 @@
+import grpc
+import IHelloService_pb2,IHelloService_pb2_grpc
+channel = grpc.insecure_channel('120.132.54.79:8001')
+stub = IHelloService_pb2_grpc.IHelloServiceStub(channel)
+
+response = stub.findHello(IHelloService_pb2.FindHelloRequest(msg='this is test hello',))
+
+
+print response

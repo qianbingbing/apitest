@@ -1,0 +1,44 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "ICouponRecordServiceProto";
+
+// 慢钱宝app精彩服务api
+service ICouponRecordShowService {
+
+    // getCouponRecordById
+    rpc getCouponRecordById (GetCouponRecordShowInfoByIdRequest) returns (CouponRecordShowInfoResponse) {
+    }
+    // 根据用户id和是否失效以及类型获取优惠券记录页
+    rpc getCouponRecordByUserIdAndExpiredPaging (GetCouponRecordShowInfoByUserIdAndExpiredPagingRequest) returns (GetCouponRecordShowInfoByUserIdAndExpiredPagingResponse) {
+    }
+
+}
+
+// 根据id获取优惠券 请求参数
+message GetCouponRecordShowInfoByIdRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string couponRecordId = 2; // 优惠券记录id
+}
+// 优惠券记录详情 响应参数
+message CouponRecordShowInfoResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    CouponRecordShowInfo couponRecordShowInfo = 2;
+}
+//  根据用户id和是否失效以及类型获取优惠券记录页      请求参数
+message GetCouponRecordShowInfoByUserIdAndExpiredPagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+    int32 pageSize = 3; //每页显示条数
+    string userId = 4; // 用户id
+    bool expired = 5; // 是否失效
+    repeated CouponShowType couponTypes = 6; // 指定类型, 如果是全部使用COUPON_ALL_COUPON_STATUS
+}
+//  根据用户id和是否失效以及类型获取优惠券记录页     响应参数
+message GetCouponRecordShowInfoByUserIdAndExpiredPagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated CouponRecordShowInfo couponRecordShowInfoList = 3; // 优惠券记录信息
+}

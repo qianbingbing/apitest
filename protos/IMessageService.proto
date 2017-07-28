@@ -1,0 +1,46 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IMessageServiceProto";
+
+// 慢钱宝app消息服务
+service IMessageService {
+
+    /**
+     *  获取消息列表
+     *  注意： 第一次获取的未读消息，状态未读；
+	 *        第二次获取时候，消息便是已读状态，因为在第一次获取后会自动更新读取状态。
+	**/
+    rpc GetMessagePaging (GetMessagePagingRequest) returns (GetMessagePagingResponse) {
+    }
+    
+    // 获取未读消息的条数
+    rpc GetUnreadMessageCount (GetUnreadMessageCountRequest) returns (GetUnreadMessageCountResponse) {
+    }
+}
+
+// 获取消息列表 请求参数
+message GetMessagePagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+}
+
+// 获取消息列表 响应参数
+message GetMessagePagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated MessageInfo messageInfoList = 3; // 消息数据
+}
+
+// 获取未读消息条数 请求参数
+message GetUnreadMessageCountRequest {
+    RequestHeader requestHeader = 1; // 请求头
+}
+
+// 获取未读消息条数  响应参数
+message GetUnreadMessageCountResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    int64 count = 2; // 未读消息条数
+}

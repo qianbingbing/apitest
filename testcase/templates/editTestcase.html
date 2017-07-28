@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
+  <title>添加接口</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="../static/css/templatemo_main.css">
+</head>
+<body>
+  <div id="main-wrapper">
+      <!--/.navbar-collapse -->
+      <div class="templatemo-content-wrapper">
+        <div class="templatemo-content">
+          <ol class="breadcrumb">
+            <li><a href="/case_list/?projectid={{ project_id }}&id={{ interface_id }}">返回</a></li>
+            <li class="active">编辑用例</li>
+          </ol>
+          <h1>Notes:</h1>
+          <p class="margin-bottom-15">添加一个测试用例 ........</p>
+          <div class="row">
+            <div class="col-md-12">
+              <form role="form" method="POST" id="templatemo-preferences-form" action="/update_testcase/?project_id={{ project_id }}&id={{ case.id }}">
+                  <div style="display: none">
+                      <input type="text" class="form-control" name="interface_id" placeholder="" value="{{ interface_id }}">
+                      <input type="text" class="form-control" name="project_id" placeholder="" value="{{ project_id }}">
+                  </div>
+                <div class="row">
+                  <div class="col-md-12 margin-bottom-15">
+                    <label for="lastName" class="control-label">用例名称</label>
+                    <input type="text" class="form-control" name="title" placeholder="请输入用例名称" value="{{ case.title }}" >
+                  </div>
+                  <div class="col-md-12 margin-bottom-15">
+                    <label for="lastName" class="control-label">前置条件</label>
+                    <textarea class="form-control" name="Precondition" placeholder="请输入前置条件">{{ case.precondition }}</textarea>
+                  </div>
+                  <div class="col-md-12 margin-bottom-15">
+                    <label for="lastName" class="control-label">参数</label>
+                    <textarea class="form-control" name="params" placeholder="请输入参数" >{{ case.params }}</textarea>
+                  </div>
+                 <div class="col-md-12 margin-bottom-15">
+                  <label for="lastName" class="control-label">预期结果</label>
+                  <input type="text" class="form-control" name="expect_result" placeholder="预期结果" value="{{ case.ex_result }}">
+                 </div>
+                  <div class="col-md-12 margin-bottom-15">
+                   <label for="lastName" class="control-label">用例开发者</label>
+                   <input type="text" class="form-control" name="developer" placeholder="用例开发者" value = "{{ case.tester }}">
+                  </div>
+                </div>
+              <div class="row templatemo-form-buttons">
+                <div class="col-md-12 ">
+                  <button type="submit" class="btn btn-primary">保存</button>
+                  <a href= '/case_list/?projectid={{ project_id }}&id={{ interface_id }}' class="btn btn-default">取消</a>
+                </div>
+                  <div class="col-md-12 margin-bottom-15">
+                  {{ error }}
+                  </div>
+              </div>
+                  {% csrf_token %}
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  <script src="../static/js/jquery.min.js"></script>
+  <script src="../static/js/bootstrap.min.js"></script>
+  <script src="../static/js/templatemo_script.js"></script>
+</body>
+</html>

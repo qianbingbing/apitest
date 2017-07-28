@@ -1,0 +1,45 @@
+syntax = "proto3";
+import "app/Entity.proto";
+package app;
+option java_multiple_files = true;
+option java_package = "com.manqian.bao.grpc.api.protobuf.app";
+option java_outer_classname = "IOrderServiceProto";
+
+// 慢钱宝app订单/投资服务
+service IOrderService {
+
+    // 获取我的订单列表数据
+    rpc GetMyOrderPaging (GetMyOrderPagingRequest) returns (GetMyOrderPagingResponse) {
+    }
+
+    // 获取我的订单详情
+    rpc GetMyOrderDetail (GetMyOrderDetailRequest) returns (GetMyOrderDetailResponse) {
+    }
+}
+
+// 获取我的订单列表 请求参数
+message GetMyOrderPagingRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    int32 pageNumber = 2; // 获取第几页数据
+    repeated OrderStatus orderStatus = 3; // 订单类型
+}
+
+// 获取我的订单列表 响应参数
+message GetMyOrderPagingResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    PagingInfo pagingInfo = 2; // 分页信息
+    repeated OrderInfo orderInfoList = 3; // 订单数据
+}
+
+// 获取我的订单详情 请求参数
+message GetMyOrderDetailRequest {
+    RequestHeader requestHeader = 1; // 请求头
+    string orderCode = 2; // 订单编码
+}
+
+// 获取我的订单详情 响应参数
+message GetMyOrderDetailResponse {
+    ResponseHeader responseHeader = 1; // 响应头
+    OrderDetailInfo orderDetailInfo = 2; // 订单详细信息
+}
+
